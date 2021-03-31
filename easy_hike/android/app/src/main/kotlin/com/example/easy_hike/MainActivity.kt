@@ -1,4 +1,4 @@
-package com.example.easy_hike
+package com.scafe.easyhike
 
 import io.flutter.embedding.android.FlutterActivity
 

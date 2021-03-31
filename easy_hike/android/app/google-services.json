@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "68586711751",
+    "project_id": "easy-hike",
+    "storage_bucket": "easy-hike.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:68586711751:android:0d3169f49013340865ace2",
+        "android_client_info": {
+          "package_name": "com.scafe.easyhike"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "68586711751-i02igqdnnfu1qmbqmamdpacqe242u8q3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scafe.easyhike",
+            "certificate_hash": "3d30dc88a448b4a4aaa3cfe5cbd8c08fd76aca13"
+          }
+        },
+        {
+          "client_id": "68586711751-67jp3bql1e28fsvm9chfv3o41kls678j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBukiv-SPylWIH7OAdnAJau_43gwvYgkbo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "68586711751-67jp3bql1e28fsvm9chfv3o41kls678j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
