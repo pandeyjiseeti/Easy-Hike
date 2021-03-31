@@ -21,6 +21,23 @@ class PolicyDialog extends StatelessWidget {
           RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
       child: Column(
         children: [
+          Expanded(
+            child: FutureBuilder(
+              future: Future.delayed(Duration(milliseconds: 150)).then((value) {
+                return rootBundle.loadString('assets/$mdFileName');
+              }),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return Markdown(
+                    data: snapshot.data.toString(),
+                  );
+                }
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              },
+            ),
+          ),
           FlatButton(
             padding: EdgeInsets.all(0),
             color: Theme.of(context).buttonColor,
