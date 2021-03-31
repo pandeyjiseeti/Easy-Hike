@@ -1,3 +1,4 @@
+import 'package:easy_hike/dialogs/policy_dialog.dart';
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/login/login.dart';
@@ -76,14 +77,34 @@ class SignUp extends StatelessWidget {
                       TextSpan(
                           style: const TextStyle(color: Colors.blue),
                           text: " Terms of Service ",
-                          recognizer: TapGestureRecognizer()..onTap = () {}),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              // Open dialog of Terms and conditions
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return PolicyDialog(
+                                      mdFileName: 'terms_of_use.md');
+                                },
+                              );
+                            }),
                       const TextSpan(
                         text: "and",
                       ),
                       TextSpan(
                           style: const TextStyle(color: Colors.blue),
                           text: " Privacy Policy",
-                          recognizer: TapGestureRecognizer()..onTap = () {}),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              // Open dialog of Privacy Policy
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return PolicyDialog(
+                                      mdFileName: 'privacy_policy.md');
+                                },
+                              );
+                            }),
                     ],
                   ),
                 ),
