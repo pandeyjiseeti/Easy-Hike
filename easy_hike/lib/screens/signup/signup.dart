@@ -1,4 +1,4 @@
-import 'package:easy_hike/dialogs/policy_dialog.dart';
+import 'package:easy_hike/widgets/policy_dialog.dart';
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/login/login.dart';
