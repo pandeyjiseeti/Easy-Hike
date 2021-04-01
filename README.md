@@ -1,5 +1,5 @@
 # Easy-Hike
-![](https://github.com/pandeyjiseeti/Easy-Hike/blob/master/easy_hike/assets/logo_dark.png)
+![](https://github.com/pandeyjiseeti/Easy-Hike/blob/master/easy_hike/assets/logo.png)
 <br>
 The purpose of Easy Hike is to bridge the gap between an organization and job seekers.It will help organizations and job seekers to connect and grow together. In this application, job seekers can search for jobs according to their degree, skills, preferred location, and company. 
 
@@ -7,7 +7,7 @@ The purpose of Easy Hike is to bridge the gap between an organization and job se
  - [ Problem Statement](https://github.com/pandeyjiseeti/Easy-Hike#table-of-contents)
  - [ Functionalities](https://github.com/pandeyjiseeti/Easy-Hike#functionalities)
  - [ Built-With](https://github.com/pandeyjiseeti/Easy-Hike#built-with)
- - [ Contributors](https://github.com/pandeyjiseeti/Easy-Hike#contributors)
+ - [ Authors](https://github.com/pandeyjiseeti/Easy-Hike#authors)
 
 
 #### PROBLEM STATEMENT 
@@ -27,14 +27,13 @@ To overcome these problems we will develop an application to search the Jobs for
   8) Status update regarding application
 
         
-#### Contributors
-   - [@pandeyjiseeti](https://github.com/pandeyjiseeti)
-   
-   - [@BadHacker-007](https://github.com/BadHacker-007)
-   
-   - [@jainakki16](https://github.com/jainakki16)
-   
-   - [@dishankkalra23](https://github.com/dishankkalra23)
-   - [@BhagWaan007](https://github.com/BhagWaan007)
+#### Authors
+|<a href = 'https://github.com/jainakki16'> <img src = 'https://avatars0.githubusercontent.com/u/55969257?s=460&v=4' width = '100' height = '100'> </a>|<a href = 'https://github.com/BadHacker-007'> <img src = 'https://avatars.githubusercontent.com/u/65851356?v=4' width = '100' height = '100'> </a>|<a href = 'https://github.com/dishankkalra23'> <img src = 'https://avatars.githubusercontent.com/u/56630742?v=4' width = '100' height = '100'> </a>|<a href = 'https://github.com/pandeyjiseeti'> <img src = 'https://avatars.githubusercontent.com/u/23702678?v=4' width = '100' height = '100'> </a>|<a href = 'https://github.com/BhagWaan007'> <img src = 'https://avatars.githubusercontent.com/u/69234340?v=4' width = '100' height = '100'> </a>|
+| --- |---|---|---|---|
+| <a href = 'https://github.com/jainakki16'> Akshat Jain </a>|<a href = 'https://github.com/BadHacker-007'> Anup Mishra </a>|<a href = 'https://github.com/dishankkalra23'> Dishank Kalra </a>|<a href = 'https://github.com/pandeyjiseeti'> Tanuj Pandey </a>|<a href = 'https://github.com/BhagWaan007'> Titas Das </a>|
 
 
+## License
+
+The project is licensed under the terms of the GNU General Public License v3.0.
+For more details see [LICENSE.md](https://github.com/pandeyjiseeti/Easy-Hike/blob/master/LICENSE).
