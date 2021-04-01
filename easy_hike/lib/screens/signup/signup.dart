@@ -1,4 +1,3 @@
-import 'package:easy_hike/widgets/policy_dialog.dart';
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/login/login.dart';
@@ -52,8 +51,8 @@ class SignUp extends StatelessWidget {
                       (BuildContext context, Widget child, AuthModel model) =>
                           SignInButton(
                     Buttons.GoogleDark,
-                    onPressed: () {
-                      model.loginWithGoogle();
+                    onPressed: () async {
+                      await model.loginWithGoogle();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
@@ -77,34 +76,14 @@ class SignUp extends StatelessWidget {
                       TextSpan(
                           style: const TextStyle(color: Colors.blue),
                           text: " Terms of Service ",
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              // Open dialog of Terms and conditions
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return PolicyDialog(
-                                      mdFileName: 'terms_of_use.md');
-                                },
-                              );
-                            }),
+                          recognizer: TapGestureRecognizer()..onTap = () {}),
                       const TextSpan(
                         text: "and",
                       ),
                       TextSpan(
                           style: const TextStyle(color: Colors.blue),
                           text: " Privacy Policy",
-                          recognizer: TapGestureRecognizer()
-                            ..onTap = () {
-                              // Open dialog of Privacy Policy
-                              showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return PolicyDialog(
-                                      mdFileName: 'privacy_policy.md');
-                                },
-                              );
-                            }),
+                          recognizer: TapGestureRecognizer()..onTap = () {}),
                     ],
                   ),
                 ),

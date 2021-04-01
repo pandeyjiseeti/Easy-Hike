@@ -51,8 +51,8 @@ class Login extends StatelessWidget {
                       (BuildContext context, Widget child, AuthModel model) =>
                           SignInButton(
                     Buttons.GoogleDark,
-                    onPressed: () {
-                      model.loginWithGoogle();
+                    onPressed: () async {
+                      await model.loginWithGoogle();
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

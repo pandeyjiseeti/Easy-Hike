@@ -40,8 +40,7 @@ class _LoginFormState extends State<LoginForm> {
         children: [
           TextFormField(
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator:
-                EmailValidator(errorText: "Enter a valid email address"),
+            validator: EmailValidator(errorText: "Enter a valid email address"),
             style: const TextStyle(height: 0.5, fontSize: 14),
             keyboardType: TextInputType.emailAddress,
             controller: _emailController,
@@ -66,8 +65,7 @@ class _LoginFormState extends State<LoginForm> {
               [
                 RequiredValidator(errorText: "* Required"),
                 MinLengthValidator(6,
-                    errorText:
-                        "Password must be at least 6 characaters long"),
+                    errorText: "Password must be at least 6 characaters long"),
                 MaxLengthValidator(15,
                     errorText:
                         "Password should not be greater than 15 characters")
@@ -102,9 +100,9 @@ class _LoginFormState extends State<LoginForm> {
                 MaterialButton(
               height: screenHeight(context, dividedBy: 15),
               color: primaryColor,
-              onPressed: () {
+              onPressed: () async {
                 if (_key.currentState.validate()) {
-                  model.login(_emailController.text.trim(),
+                  await model.login(_emailController.text.trim(),
                       _passwordController.text.trim());
                   Navigator.pushReplacement(
                     context,
