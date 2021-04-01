@@ -2,6 +2,7 @@ import 'package:easy_hike/config/pallete.dart';
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/home.dart';
+import 'package:easy_hike/screens/search/search.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -107,7 +108,7 @@ class _LoginFormState extends State<LoginForm> {
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
-                      builder: (BuildContext context) => Home(),
+                      builder: (BuildContext context) => MainSearch(),
                     ),
                   );
                 }
