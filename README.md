@@ -6,7 +6,7 @@ The purpose of Easy Hike is to bridge the gap between an organization and job se
  - [1) Problem Statement](https://github.com/pandeyjiseeti/Easy-Hike#table-of-contents)
  - [2) FUNCTIONALITIES](https://github.com/pandeyjiseeti/Easy-Hike#functionalities)
  - [3) Built-With](https://github.com/pandeyjiseeti/Easy-Hike#built-with)
- - [4) Contributors](https://github.com/pandeyjiseeti/Easy-Hike#contibutors)
+ - [4) Contributors](https://github.com/pandeyjiseeti/Easy-Hike#contributors)
 
 
 #### PROBLEM STATEMENT 
@@ -16,14 +16,14 @@ To overcome these problems we will develop an application to search the Jobs for
 
 #### FUNCTIONALITIES
 
- - [1) Sign In / Sign Up as a job seeker or a company’s representative]
- - [2) Update portfolio]
- - [3) Company will post jobs]
- - [4) Job seekers can  search jobs with various filters]
- - [5) Job seekers can apply for job]
- - [6) View resumes]
- - [7) Approve / Disapprove application]
- - [8) Status update regarding application]
+  1) Sign In / Sign Up as a job seeker or a company’s representative
+  2) Update portfolio
+  3) Company will post jobs
+  4) Job seekers can  search jobs with various filters
+  5) Job seekers can apply for job
+  6) View resumes
+  7) Approve / Disapprove application
+  8) Status update regarding application
 
         
 #### Contributors
