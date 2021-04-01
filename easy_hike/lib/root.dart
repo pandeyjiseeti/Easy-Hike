@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:easy_hike/screens/home.dart';
 import 'package:easy_hike/screens/onboarding.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:easy_hike/services/auth.dart';

@@ -7,7 +7,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../../service_locator.dart';
-import '../home.dart';
+
 
 class SignUpForm extends StatefulWidget {
   @override

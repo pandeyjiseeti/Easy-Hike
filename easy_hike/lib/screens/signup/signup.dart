@@ -7,9 +7,7 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:scoped_model/scoped_model.dart';
-
 import '../../service_locator.dart';
-import '../home.dart';
 import 'signup_form.dart';
 
 class SignUp extends StatelessWidget {

@@ -1,7 +1,6 @@
 import 'package:easy_hike/config/pallete.dart';
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
-import 'package:easy_hike/screens/home.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
