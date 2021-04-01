@@ -1,12 +1,13 @@
 # Easy-Hike
 ![](https://github.com/pandeyjiseeti/Easy-Hike/blob/master/easy_hike/assets/logo_dark.png)
+<br>
 The purpose of Easy Hike is to bridge the gap between an organization and job seekers.It will help organizations and job seekers to connect and grow together. In this application, job seekers can search for jobs according to their degree, skills, preferred location, and company. 
 
 ### Table Of Contents
- - [1) Problem Statement](https://github.com/pandeyjiseeti/Easy-Hike#table-of-contents)
- - [2) FUNCTIONALITIES](https://github.com/pandeyjiseeti/Easy-Hike#functionalities)
- - [3) Built-With](https://github.com/pandeyjiseeti/Easy-Hike#built-with)
- - [4) Contributors](https://github.com/pandeyjiseeti/Easy-Hike#contributors)
+ - [ Problem Statement](https://github.com/pandeyjiseeti/Easy-Hike#table-of-contents)
+ - [ Functionalities](https://github.com/pandeyjiseeti/Easy-Hike#functionalities)
+ - [ Built-With](https://github.com/pandeyjiseeti/Easy-Hike#built-with)
+ - [ Contributors](https://github.com/pandeyjiseeti/Easy-Hike#contributors)
 
 
 #### PROBLEM STATEMENT 
