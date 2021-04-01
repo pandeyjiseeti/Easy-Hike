@@ -3,6 +3,7 @@ import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/login/login.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:easy_hike/widgets/or_divider.dart';
+import 'package:easy_hike/widgets/policy_dialog.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -73,16 +74,30 @@ class SignUp extends StatelessWidget {
                     style: const TextStyle(color: Colors.grey, fontSize: 11.0),
                     children: [
                       TextSpan(
-                          style: const TextStyle(color: Colors.blue),
-                          text: " Terms of Service ",
-                          recognizer: TapGestureRecognizer()..onTap = () {}),
+                        style: const TextStyle(color: Colors.blue),
+                        text: " Terms of Service ",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => showDialog(
+                                context: context,
+                                builder: (BuildContext context) => PolicyDialog(
+                                  mdFileName: 'terms_of_use.md',
+                                ),
+                              ),
+                      ),
                       const TextSpan(
                         text: "and",
                       ),
                       TextSpan(
-                          style: const TextStyle(color: Colors.blue),
-                          text: " Privacy Policy",
-                          recognizer: TapGestureRecognizer()..onTap = () {}),
+                        style: const TextStyle(color: Colors.blue),
+                        text: " Privacy Policy",
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () => showDialog(
+                                context: context,
+                                builder: (BuildContext context) => PolicyDialog(
+                                  mdFileName: 'privacy_policy.md',
+                                ),
+                              ),
+                      ),
                     ],
                   ),
                 ),

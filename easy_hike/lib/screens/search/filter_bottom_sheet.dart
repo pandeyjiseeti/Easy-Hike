@@ -13,7 +13,7 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 25.0),
-      height: MediaQuery.of(context).size.height * 0.715,
+      height: MediaQuery.of(context).size.height * 0.65,
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,9 +78,6 @@ class _FilterBottomSheetState extends State<FilterBottomSheet> {
                 ),
               ),
             ],
-          ),
-          SizedBox(
-            height: MediaQuery.of(context).size.height * 0.02,
           ),
         ],
       ),

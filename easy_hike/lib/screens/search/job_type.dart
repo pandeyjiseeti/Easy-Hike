@@ -5,7 +5,7 @@ class JobType extends StatefulWidget {
     "Full-Time",
     "Part-Time",
     "Freelance",
-    "Remote/Control",
+    "Remote",
     "Internship",
     "Commission"
   ];

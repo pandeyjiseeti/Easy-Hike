@@ -17,15 +17,18 @@ class PolicyDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape:
-          RoundedRectangleBorder(borderRadius: BorderRadius.circular(radius)),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(radius),
+      ),
       child: Column(
         children: [
           Expanded(
             child: FutureBuilder(
-              future: Future.delayed(Duration(milliseconds: 150)).then((value) {
-                return rootBundle.loadString('assets/$mdFileName');
-              }),
+              future: Future.delayed(const Duration(milliseconds: 150)).then(
+                (value) {
+                  return rootBundle.loadString('assets/$mdFileName');
+                },
+              ),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return Markdown(
