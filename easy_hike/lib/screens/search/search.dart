@@ -28,7 +28,7 @@ class _MainSearchState extends State<MainSearch> {
               DrawerHeader(
                 child: Container(
                   // TO DO: Image(Have to be decided)
-                  height: 70,
+                  height: 30,
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset("assets/logo_dark.png"),
                 ),
@@ -43,27 +43,7 @@ class _MainSearchState extends State<MainSearch> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height:45),
-              Text(
-                'To be Decided',
-                style: TextStyle(
-                  fontFamily: 'Avenir',
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.center,
-              ),   
-              SizedBox(height:45),
-              Text(
-                'To be Decided',
-                style: TextStyle(
-                  fontFamily: 'Avenir',
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.center,
-              ),  
-              SizedBox(height:45),
+              SizedBox(height: 45),
               Text(
                 'To be Decided',
                 style: TextStyle(
@@ -73,17 +53,42 @@ class _MainSearchState extends State<MainSearch> {
                 ),
                 textAlign: TextAlign.center,
               ),
-              SizedBox(height:45),
+              SizedBox(height: 45),
+              Text(
+                'To be Decided',
+                style: TextStyle(
+                  fontFamily: 'Avenir',
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 45),
+              Text(
+                'To be Decided',
+                style: TextStyle(
+                  fontFamily: 'Avenir',
+                  fontSize: 24,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              SizedBox(height: 45),
               Material(
                 borderRadius: BorderRadius.circular(500),
                 child: InkWell(
                   borderRadius: BorderRadius.circular(500),
                   splashColor: Colors.black45,
-                   onTap: () {
+                  onTap: () {
                     Navigator.of(context).pop(); // To DO: close the drawer
                   },
+                  child: CircleAvatar(
+                      radius: 20,
+                      backgroundColor: Colors
+                          .black, // TO DO: check the color and icon for closing drawer
+                      child: Icon(Icons.arrow_back, color: Colors.white)),
                 ),
-              ),                                         
+              ),
             ],
           ),
         ),
@@ -218,4 +223,3 @@ class _MainSearchState extends State<MainSearch> {
     );
   }
 }
-
