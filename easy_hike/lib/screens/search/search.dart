@@ -1,5 +1,6 @@
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/search/job_tile.dart';
+import 'package:easy_hike/screens/search/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -31,11 +32,19 @@ class _MainSearchState extends State<MainSearch> {
           ),
           title: Text('Back'),
           actions: [
-            const Padding(
+            Padding(
               padding: EdgeInsets.only(right: 8.0),
               child: CircleAvatar(
                 radius: 15.0,
-                child: Icon(Icons.account_circle),
+                child: IconButton(
+                  icon: Icon(Icons.account_circle),
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    ),
+                  },
+                ),
               ),
             ),
             ScopedModelDescendant<AuthModel>(
