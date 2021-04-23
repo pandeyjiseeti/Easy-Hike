@@ -10,19 +10,24 @@ class Settings extends StatelessWidget {
     return Drawer(
       child: Column(
         children: <Widget>[
-          SizedBox(height: 30 // To be decided later
-              ),
+          /*SizedBox(height: 10 // To be decided later
+              ),*/
           DrawerHeader(
             child: Container(
               // TO DO: Image(Have to be decided)
-              height: 30,
+              height: 20,
               width: MediaQuery.of(context).size.width,
               child: Image.asset("assets/logo_dark.png"),
             ),
+            decoration: BoxDecoration(
+            color: Colors.transparent,
           ),
-          SizedBox(height: 20),
+          ),
+
+          SizedBox(height: 45),
+          
           Text(
-            'To be Decided',
+            'Profile',
             style: TextStyle(
               fontFamily: 'Avenir',
               fontSize: 24,
@@ -30,9 +35,9 @@ class Settings extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 45),
+          SizedBox(height: 35),
           Text(
-            'To be Decided',
+            'About',
             style: TextStyle(
               fontFamily: 'Avenir',
               fontSize: 24,
@@ -40,9 +45,9 @@ class Settings extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 45),
+          SizedBox(height: 35),
           Text(
-            'To be Decided',
+            'Log Out',
             style: TextStyle(
               fontFamily: 'Avenir',
               fontSize: 24,
@@ -50,17 +55,17 @@ class Settings extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          SizedBox(height: 45),
-          Text(
-            'To be Decided',
-            style: TextStyle(
-              fontFamily: 'Avenir',
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          SizedBox(height: 45),
+          // SizedBox(height: 35),
+          // Text(
+          //   'Log Out',
+          //   style: TextStyle(
+          //     fontFamily: 'Avenir',
+          //     fontSize: 24,
+          //     fontWeight: FontWeight.w700,
+          //   ),
+          //   textAlign: TextAlign.center,
+          // ),
+          SizedBox(height: 35),
           Material(
             borderRadius: BorderRadius.circular(500),
             child: InkWell(
@@ -74,6 +79,27 @@ class Settings extends StatelessWidget {
                   backgroundColor: Colors
                       .black, // TO DO: check the color and icon for closing drawer
                   child: Icon(Icons.arrow_back, color: Colors.white)),
+            ),
+          ),
+          Expanded(
+            child: Align(
+              alignment: Alignment.bottomCenter,
+              child: Container(
+                height: 55,
+                width: MediaQuery.of(context).size.width,
+                color: Colors.black,
+                child: Center(
+                  child: Text(
+                    ' v1.0.1',  // TO DO: Version number to be decided 
+                    style: TextStyle(
+                      fontFamily: 'Avenir',
+                      fontSize: 20,
+                      color: const Color(0xffffffff),
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              ),
             ),
           ),
         ],
