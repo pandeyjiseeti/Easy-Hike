@@ -10,15 +10,15 @@ class _ProfilePageState extends State<ProfilePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Profile'),
+        title: Text('Profile'),
       ),
       body: SingleChildScrollView(
         child: ConstrainedBox(
-          constraints: const BoxConstraints(),
+          constraints: BoxConstraints(),
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.all(15.0),
+                padding: EdgeInsets.all(15.0),
                 child: Center(
                   child: Column(
                     children: [
@@ -29,6 +29,18 @@ class _ProfilePageState extends State<ProfilePage> {
                           width: 150.0,
                           height: 150.0,
                         ),
+                      ),
+                      Text(
+                        'Gloria Russell',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w800, fontSize: 32.0),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        'UI / UX Designer',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w400, fontSize: 15.0),
+                        textAlign: TextAlign.center,
                       ),
                     ],
                   ),
