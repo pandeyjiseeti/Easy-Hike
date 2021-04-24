@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -30,6 +31,9 @@ class _ProfilePageState extends State<ProfilePage> {
                           height: 150.0,
                         ),
                       ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
                       Text(
                         'Gloria Russell',
                         style: TextStyle(
@@ -46,10 +50,59 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ),
               ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 40.0,
+                  ),
+                  socialMediaLinks(
+                      'assets/linkedin.png', 'https://www.linkedin.com/feed/'),
+                  socialMediaLinks('assets/github.png', 'https://github.com/'),
+                  socialMediaLinks(
+                      'assets/twitter.png', 'https://twitter.com/'),
+                  socialMediaLinks('assets/google-plus.png',
+                      'https://myaccount.google.com/intro/profile'),
+                  SizedBox(
+                    width: 40.0,
+                  ),
+                ],
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  Expanded socialMediaLinks(String imagePath, String url) {
+    return Expanded(
+      child: Container(
+        margin: EdgeInsets.fromLTRB(10.0, 17.0, 10.0, 17.0),
+        child: Card(
+          elevation: 10,
+          shadowColor: Colors.pink[100],
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20.0),
+          ),
+          child: new IconButton(
+            icon: Image(
+              image: AssetImage(imagePath),
+            ),
+            onPressed: () => {
+              launchURL(url),
+            },
+          ),
+        ),
+      ),
+    );
+  }
+
+  launchURL(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url, forceWebView: true);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
