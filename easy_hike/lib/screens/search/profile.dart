@@ -68,6 +68,27 @@ class _ProfilePageState extends State<ProfilePage> {
                   ),
                 ],
               ),
+              Text(
+                'Skills',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24.0),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Container(
+                height: 100.0,
+                child: ListView(
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    skillCard('Figma'),
+                    skillCard('Adobe'),
+                    skillCard('Sketch'),
+                    skillCard('Flutter'),
+                    skillCard('Dart'),
+                  ],
+                ),
+              ),
             ],
           ),
         ),
@@ -104,5 +125,35 @@ class _ProfilePageState extends State<ProfilePage> {
     } else {
       throw 'Could not launch $url';
     }
+  }
+
+  Container skillCard(String skillName) {
+    return Container(
+      padding: const EdgeInsets.only(left: 4.0, right: 4.0),
+      width: 100.0,
+      child: Card(
+        elevation: 5.0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10.0),
+        ),
+        child: Column(
+          children: [
+            Placeholder(
+              fallbackHeight: 50.0,
+              fallbackWidth: 50.0,
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            Text(
+              skillName,
+              style: TextStyle(
+                fontWeight: FontWeight.w200,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
