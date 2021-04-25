@@ -12,6 +12,36 @@ class _QuestionState extends State<Question> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.black,
+          onPressed: () => {
+            // Navigator.push(
+            //   context,
+            //   MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            // )
+          },
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) => HomePage()),
+              ),
+            },
+            child: Text(
+              'Skip',
+              style: TextStyle(color: Colors.black),
+            ),
+          )
+        ],
+      ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
               child: TextField(
