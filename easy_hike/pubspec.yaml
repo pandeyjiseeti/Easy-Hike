@@ -35,6 +35,7 @@ dependencies:
   scoped_model: ^1.1.0
   flutter_markdown: ^0.6.1
   url_launcher: ^6.0.3
+  timeline_tile: ^2.0.0
    
 dev_dependencies:
   flutter_test:
