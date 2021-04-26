@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:timeline_tile/timeline_tile.dart';
+
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -89,6 +91,43 @@ class _ProfilePageState extends State<ProfilePage> {
                   ],
                 ),
               ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Text(
+                'Experience',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24.0),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Column(
+                children: [
+                  experienceTile(
+                      position: 'Chief Executive Officer',
+                      companyName: 'Facebook',
+                      timePeriod: 'February 2004 - March 2104',
+                      isFirstTile: true),
+                  experienceTile(
+                      position: 'Chief Operating Officer',
+                      companyName: 'Amazon',
+                      timePeriod: 'July 1994 - August 2094'),
+                  experienceTile(
+                      position: 'Chief Financial Officer',
+                      companyName: 'Apple',
+                      timePeriod: 'April 1976 - May 2076'),
+                  experienceTile(
+                      position: 'Chief Marketing Officer',
+                      companyName: 'Netflix',
+                      timePeriod: 'August 1997 - September 2097'),
+                  experienceTile(
+                      position: 'Chief Technology Officer',
+                      companyName: 'Google',
+                      timePeriod: 'September 1998 - October 2098',
+                      isLastTile: true),
+                ],
+              ),
             ],
           ),
         ),
@@ -152,6 +191,42 @@ class _ProfilePageState extends State<ProfilePage> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+
+    SizedBox experienceTile(
+      {String position,
+      String companyName,
+      String timePeriod,
+      bool isFirstTile = false,
+      bool isLastTile = false}) {
+    return SizedBox(
+      height: 100.0,
+      child: TimelineTile(
+        isFirst: isFirstTile,
+        isLast: isLastTile,
+        endChild: Container(
+          margin: EdgeInsets.only(left: 15.0, right: 25.0),
+          decoration: BoxDecoration(
+            color: Colors.grey[400],
+            borderRadius: BorderRadius.all(
+              Radius.circular(25.0),
+            ),
+          ),
+          child: ListTile(
+            title: Text(position),
+            subtitle: Text('$companyName\n$timePeriod'),
+            isThreeLine: true,
+          ),
+        ),
+        beforeLineStyle: LineStyle(color: Colors.grey, thickness: 1.0),
+        afterLineStyle: LineStyle(color: Colors.grey, thickness: 1.0),
+        indicatorStyle: IndicatorStyle(
+          width: 9.0,
+          color: Colors.grey,
+          padding: EdgeInsets.fromLTRB(4.0, 5.0, 4.0, 5.0),
         ),
       ),
     );
