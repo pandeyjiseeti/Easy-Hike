@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
-
 class ProfilePage extends StatefulWidget {
   @override
   _ProfilePageState createState() => _ProfilePageState();
@@ -128,6 +127,72 @@ class _ProfilePageState extends State<ProfilePage> {
                       isLastTile: true),
                 ],
               ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Text(
+                'Education',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24.0),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Column(
+                children: [
+                  educationTile(
+                      schoolName: 'Hardvard University',
+                      course: 'B.Tech.',
+                      timePeriod: '2010 - 2020'),
+                  educationTile(
+                      schoolName: 'Massachusetts Institute of Technology',
+                      course: 'B.Tech.',
+                      timePeriod: '2011 - 2021'),
+                  educationTile(
+                      schoolName: 'Stanford University',
+                      course: 'B.Tech.',
+                      timePeriod: '2012 - 2022'),
+                  educationTile(
+                      schoolName: 'University of Oxford',
+                      course: 'B.Tech.',
+                      timePeriod: '2013 - 2023'),
+                ],
+              ),
+              SizedBox(
+                height: 20.0,
+              ),
+              Text(
+                'Licenses & certifications',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24.0),
+              ),
+              SizedBox(
+                height: 10.0,
+              ),
+              Column(
+                children: [
+                  licensesTile(
+                      courseName: 'Python',
+                      courseSite: 'Udemy',
+                      issuedData: 'July 2020',
+                      credentialId: 'Credential ID - UC-789645'),
+                  licensesTile(
+                      courseName: 'Java',
+                      courseSite: 'Udacity',
+                      issuedData: 'July 2021',
+                      credentialId: 'Credential ID - UN-2158897'),
+                  licensesTile(
+                      courseName: 'C++',
+                      courseSite: 'Coursera',
+                      issuedData: 'July 2022',
+                      credentialId: 'Credential ID - CY-4562133'),
+                  licensesTile(
+                      courseName: 'Ruby',
+                      courseSite: 'Upgrad',
+                      issuedData: 'July 2023',
+                      credentialId: 'Credential ID - UE-15937185'),
+                ],
+              ),
             ],
           ),
         ),
@@ -196,7 +261,7 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-    SizedBox experienceTile(
+  SizedBox experienceTile(
       {String position,
       String companyName,
       String timePeriod,
@@ -229,6 +294,29 @@ class _ProfilePageState extends State<ProfilePage> {
           padding: EdgeInsets.fromLTRB(4.0, 5.0, 4.0, 5.0),
         ),
       ),
+    );
+  }
+
+  ListTile educationTile(
+      {String schoolName, String course, String timePeriod}) {
+    return ListTile(
+      leading: Icon(Icons.school),
+      title: Text(schoolName),
+      subtitle: Text('$course\n$timePeriod'),
+      isThreeLine: true,
+    );
+  }
+
+  ListTile licensesTile(
+      {String courseName,
+      String courseSite,
+      String issuedData,
+      String credentialId}) {
+    return ListTile(
+      leading: Icon(Icons.code),
+      title: Text(courseName),
+      subtitle: Text('$courseSite\n$issuedData\n$credentialId\n'),
+      isThreeLine: true,
     );
   }
 }
