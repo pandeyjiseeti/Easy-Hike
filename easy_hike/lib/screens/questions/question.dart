@@ -1,6 +1,6 @@
-import 'package:easy_hike/screens/search/search.dart';
 import 'package:flutter/material.dart';
-// import 'package:question_page/Pages/homepage.dart';
+import 'package:question_page/Pages/homepage.dart';
+import 'personalintro.dart';
 
 class Question extends StatefulWidget {
   @override
@@ -8,8 +8,18 @@ class Question extends StatefulWidget {
 }
 
 class _QuestionState extends State<Question> {
-  bool _visible = false;
-  bool _visible2 = false;
+  var _description;
+  var _position;
+  var _company;
+  var _industry;
+  var _years;
+
+  final descon = new TextEditingController();
+  final poscon = new TextEditingController();
+  final comcon = new TextEditingController();
+  final indcon = new TextEditingController();
+  final yearcon = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,13 +28,13 @@ class _QuestionState extends State<Question> {
         elevation: 0,
         automaticallyImplyLeading: true,
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
+          icon: Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () => {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-            // )
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+            )
           },
         ),
         actions: [
@@ -33,7 +43,7 @@ class _QuestionState extends State<Question> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => MainSearch()),
+                    builder: (BuildContext context) => PersonalIntro()),
               ),
             },
             child: Text(
@@ -43,72 +53,73 @@ class _QuestionState extends State<Question> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextButton(
-              child: Text("Job Description"),
-              onPressed: () {
-                setState(() {
-                  _visible = !_visible;
-                });
-              },
-            ),
-            Visibility(
-              visible: _visible,
-              child: TextField(
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextButton(
+                child: Text("Job Description"),
+                onPressed: () {},
+              ),
+              TextField(
+                controller: poscon,
                 decoration: InputDecoration(
                     hintText: "Current/Last job position",
                     labelText: "Job Position",
                     border: UnderlineInputBorder()),
               ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Visibility(
-              visible: _visible,
-              child: TextField(
+              SizedBox(
+                height: 16,
+              ),
+              TextField(
+                controller: comcon,
                 decoration: InputDecoration(
                     hintText: "Enter Company Name",
                     labelText: "Company Name",
                     border: UnderlineInputBorder()),
               ),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Visibility(
-              visible: _visible,
-              child: TextField(
+              SizedBox(
+                height: 16,
+              ),
+              TextField(
+                controller: indcon,
                 decoration: InputDecoration(
                     hintText: "Enter Industry Name",
                     labelText: "Industry",
                     border: UnderlineInputBorder()),
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: TextButton(
-                child: Text("Years of Experience"),
-                onPressed: () {
-                  setState(() {
-                    _visible2 = !_visible2;
-                  });
-                },
-              ),
-            ),
-            Visibility(
-              visible: _visible2,
-              child: TextField(
+              TextField(
+                controller: yearcon,
+                keyboardType: TextInputType.number,
                 decoration: InputDecoration(
-                    hintText: "Enter Company Name",
-                    labelText: "Company Name",
+                    hintText: "Years of Experience",
+                    labelText: "Years",
                     border: UnderlineInputBorder()),
               ),
-            ),
-          ],
+              TextField(
+                controller: descon,
+                decoration: InputDecoration(
+                    hintText: "Enter descripion",
+                    labelText: "Describe your job",
+                    border: UnderlineInputBorder()),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: RaisedButton(
+                    child: Text('Submit'),
+                    onPressed: () {
+                      setState(() {
+                        _position = poscon.text;
+                        _description = descon.text;
+                        _company = comcon.text;
+                        _industry = indcon.text;
+                        _years = yearcon.value;
+                      });
+                    }),
+              )
+            ],
+          ),
         ),
       ),
     );

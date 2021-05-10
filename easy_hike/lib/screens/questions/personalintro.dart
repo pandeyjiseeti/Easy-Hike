@@ -7,9 +7,37 @@ class PersonalIntro extends StatefulWidget {
 }
 
 class _PersonalIntroState extends State<PersonalIntro> {
-  bool _visible = false;
-  bool _visible2 = false;
-  DateTime _dateTime;
+  DateTime _dateTime = DateTime.now();
+  var _name;
+  var _email;
+  var _phoneno;
+  var _bday;
+  var _paddress;
+  var _raddress;
+
+  final namecon = new TextEditingController();
+  final emailcon = new TextEditingController();
+  final phonecon = new TextEditingController();
+  final bdaycon = new TextEditingController();
+  final paddresscon = new TextEditingController();
+  final raddresscon = new TextEditingController();
+  Future<Null> _selectdate(BuildContext context) async {
+    DateTime _datepicker = await showDatePicker(
+        context: context,
+        initialDate: _dateTime,
+        firstDate: DateTime(1940),
+        lastDate: DateTime(2023),
+        initialDatePickerMode: DatePickerMode.day,
+        selectableDayPredicate: (DateTime val) =>
+            val.weekday == 6 || val.weekday == 7 ? false : true);
+
+    if (_datepicker != null && _datepicker != _dateTime) {
+      setState(() {
+        _dateTime = _datepicker;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,83 +71,112 @@ class _PersonalIntroState extends State<PersonalIntro> {
           )
         ],
       ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            TextButton(
-              child: Text("Personal Informations"),
-              onPressed: () {
-                setState(() {
-                  _visible = !_visible;
-                });
-              },
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: "Enter your name",
-                  labelText: "Name",
-                  border: UnderlineInputBorder()),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: "Enter Email address",
-                  labelText: "Email Address",
-                  border: UnderlineInputBorder()),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: "Enter phone number",
-                  labelText: "Phone no",
-                  border: UnderlineInputBorder()),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            Visibility(
-                visible: _visible,
-                child: Text('pick a date'),
-                onpressed: () {
-                  showDatePicker(
-                      context: context,
-                      initialDate: DateTime.now(),
-                      firstDate: DateTime(1950),
-                      lastDate: DateTime(2021));
-                }),
-            SizedBox(
-              height: 16,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: "Enter Permanent address",
-                  labelText: "Permenant Address",
-                  border: UnderlineInputBorder()),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: "Enter residential address",
-                  labelText: "Residential Address",
-                  border: UnderlineInputBorder()),
-            ),
-            SizedBox(
-              height: 16,
-            ),
-            TextField(
-              decoration: InputDecoration(
-                  hintText: "Enter residential address",
-                  labelText: "Residential Address",
-                  border: UnderlineInputBorder()),
-            ),
-          ],
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            children: [
+              TextButton(
+                child: Text("Personal Informations"),
+                onPressed: () {
+                  setState(() {});
+                },
+              ),
+              TextField(
+                controller: namecon,
+                decoration: InputDecoration(
+                    hintText: "Enter your name",
+                    labelText: "Name",
+                    border: UnderlineInputBorder()),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              TextField(
+                controller: emailcon,
+                keyboardType: TextInputType.emailAddress,
+                decoration: InputDecoration(
+                    hintText: "Enter Email address",
+                    labelText: "Email Address",
+                    border: UnderlineInputBorder()),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              TextField(
+                controller: phonecon,
+                keyboardType: TextInputType.phone,
+                decoration: InputDecoration(
+                    hintText: "Enter phone number",
+                    labelText: "Phone no",
+                    border: UnderlineInputBorder()),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+
+              TextFormField(
+                  controller: bdaycon,
+                  readOnly: true,
+                  onTap: () {
+                    setState(() {
+                      _selectdate(context);
+                    });
+                  },
+                  decoration: InputDecoration(
+                      hintText: _dateTime.toString(),
+                      labelText: "Birthday",
+                      focusedBorder: UnderlineInputBorder())),
+              // Visibility(
+              //     visible: _visible,
+              //     child: Text('pick a date'),
+              //     onPressed: ()  {
+              //       showDatePicker(
+              //           context: context,
+              //           initialDate: DateTime.now(),
+              //           firstDate: DateTime(1950),
+              //           lastDate: DateTime(2021));
+              //     }),
+              SizedBox(
+                height: 16,
+              ),
+              TextField(
+                controller: paddresscon,
+                decoration: InputDecoration(
+                    hintText: "Enter Permanent address",
+                    labelText: "Permenant Address",
+                    border: UnderlineInputBorder()),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              TextField(
+                controller: raddresscon,
+                decoration: InputDecoration(
+                    hintText: "Enter residential address",
+                    labelText: "Residential Address",
+                    border: UnderlineInputBorder()),
+              ),
+              SizedBox(
+                height: 16,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(32.0),
+                child: RaisedButton(
+                    child: Text('Submit'),
+                    onPressed: () {
+                      setState(() {
+                        _name = namecon.text;
+                        _email = emailcon.text;
+                        _phoneno = phonecon.text;
+                        _bday = bdaycon.text;
+                        _paddress = paddresscon.text;
+                        _raddress = raddresscon.text;
+                      });
+                    }),
+              )
+            ],
+          ),
         ),
       ),
     );
