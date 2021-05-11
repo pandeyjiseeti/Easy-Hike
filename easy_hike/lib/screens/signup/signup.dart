@@ -1,6 +1,7 @@
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/login/login.dart';
+import 'package:easy_hike/screens/questions/question.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:easy_hike/widgets/or_divider.dart';
 import 'package:easy_hike/widgets/policy_dialog.dart';
@@ -56,7 +57,7 @@ class SignUp extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => MainSearch(),
+                          builder: (BuildContext context) => Question(),
                         ),
                       );
                     },
