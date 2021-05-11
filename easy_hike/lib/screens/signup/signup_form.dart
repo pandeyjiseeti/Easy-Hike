@@ -1,14 +1,15 @@
 import 'package:easy_hike/config/pallete.dart';
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
+import 'package:easy_hike/screens/questions/personalintro.dart';
 import 'package:easy_hike/screens/questions/question.dart';
 import 'package:easy_hike/screens/search/search.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../../service_locator.dart';
-
 
 class SignUpForm extends StatefulWidget {
   @override
@@ -132,12 +133,14 @@ class _SignUpFormState extends State<SignUpForm> {
               height: screenHeight(context, dividedBy: 15),
               color: primaryColor,
               onPressed: () async {
-                await model.createAccount(_emailController.text.trim(),
+                User user = await model.createAccount(
+                    _emailController.text.trim(),
                     _passwordController.text.trim());
+                model.addJobUser(user, _fullNameController.text.trim());
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(
-                    builder: (BuildContext context) => Question(),
+                    builder: (BuildContext context) => PersonalIntro(),
                   ),
                 );
               },

@@ -1,5 +1,5 @@
+import 'package:easy_hike/screens/search/search.dart';
 import 'package:flutter/material.dart';
-import 'package:question_page/Pages/homepage.dart';
 import 'personalintro.dart';
 
 class Question extends StatefulWidget {
@@ -8,11 +8,11 @@ class Question extends StatefulWidget {
 }
 
 class _QuestionState extends State<Question> {
-  var _description;
-  var _position;
-  var _company;
-  var _industry;
-  var _years;
+  String _description;
+  String _position;
+  String _company;
+  String _industry;
+  String _years;
 
   final descon = new TextEditingController();
   final poscon = new TextEditingController();
@@ -31,10 +31,7 @@ class _QuestionState extends State<Question> {
           icon: Icon(Icons.arrow_back),
           color: Colors.black,
           onPressed: () => {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (BuildContext context) => HomePage()),
-            )
+            Navigator.pop(context),
           },
         ),
         actions: [
@@ -67,7 +64,7 @@ class _QuestionState extends State<Question> {
                 decoration: InputDecoration(
                     hintText: "Current/Last job position",
                     labelText: "Job Position",
-                    border: UnderlineInputBorder()),
+                    border: OutlineInputBorder()),
               ),
               SizedBox(
                 height: 16,
@@ -77,7 +74,7 @@ class _QuestionState extends State<Question> {
                 decoration: InputDecoration(
                     hintText: "Enter Company Name",
                     labelText: "Company Name",
-                    border: UnderlineInputBorder()),
+                    border: OutlineInputBorder()),
               ),
               SizedBox(
                 height: 16,
@@ -87,7 +84,7 @@ class _QuestionState extends State<Question> {
                 decoration: InputDecoration(
                     hintText: "Enter Industry Name",
                     labelText: "Industry",
-                    border: UnderlineInputBorder()),
+                    border: OutlineInputBorder()),
               ),
               TextField(
                 controller: yearcon,
@@ -95,28 +92,29 @@ class _QuestionState extends State<Question> {
                 decoration: InputDecoration(
                     hintText: "Years of Experience",
                     labelText: "Years",
-                    border: UnderlineInputBorder()),
+                    border: OutlineInputBorder()),
               ),
               TextField(
                 controller: descon,
                 decoration: InputDecoration(
                     hintText: "Enter descripion",
                     labelText: "Describe your job",
-                    border: UnderlineInputBorder()),
+                    border: OutlineInputBorder()),
               ),
               Padding(
                 padding: const EdgeInsets.all(32.0),
-                child: RaisedButton(
-                    child: Text('Submit'),
-                    onPressed: () {
-                      setState(() {
-                        _position = poscon.text;
-                        _description = descon.text;
-                        _company = comcon.text;
-                        _industry = indcon.text;
-                        _years = yearcon.value;
-                      });
-                    }),
+                child: ElevatedButton(
+                  onPressed: () {
+                    setState(() {
+                      _position = poscon.text;
+                      _description = descon.text;
+                      _company = comcon.text;
+                      _industry = indcon.text;
+                      _years = yearcon.text;
+                    });
+                  },
+                  child: Text('Submit'),
+                ),
               )
             ],
           ),

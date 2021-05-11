@@ -1,5 +1,6 @@
+import 'package:easy_hike/config/screen_size_reducers.dart';
+import 'package:easy_hike/screens/search/search.dart';
 import 'package:flutter/material.dart';
-import 'homepage.dart';
 
 class PersonalIntro extends StatefulWidget {
   @override
@@ -8,19 +9,13 @@ class PersonalIntro extends StatefulWidget {
 
 class _PersonalIntroState extends State<PersonalIntro> {
   DateTime _dateTime = DateTime.now();
-  var _name;
-  var _email;
-  var _phoneno;
-  var _bday;
-  var _paddress;
-  var _raddress;
-
   final namecon = new TextEditingController();
   final emailcon = new TextEditingController();
   final phonecon = new TextEditingController();
   final bdaycon = new TextEditingController();
   final paddresscon = new TextEditingController();
   final raddresscon = new TextEditingController();
+
   Future<Null> _selectdate(BuildContext context) async {
     DateTime _datepicker = await showDatePicker(
         context: context,
@@ -51,7 +46,8 @@ class _PersonalIntroState extends State<PersonalIntro> {
           onPressed: () => {
             Navigator.push(
               context,
-              MaterialPageRoute(builder: (BuildContext context) => HomePage()),
+              MaterialPageRoute(
+                  builder: (BuildContext context) => MainSearch()),
             )
           },
         ),
@@ -61,61 +57,68 @@ class _PersonalIntroState extends State<PersonalIntro> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                    builder: (BuildContext context) => HomePage()),
+                    builder: (BuildContext context) => MainSearch()),
               ),
             },
             child: Text(
               'Skip',
-              style: TextStyle(color: Colors.black),
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 18.0,
+              ),
             ),
           )
         ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            children: [
-              TextButton(
-                child: Text("Personal Informations"),
-                onPressed: () {
-                  setState(() {});
-                },
-              ),
-              TextField(
-                controller: namecon,
-                decoration: InputDecoration(
-                    hintText: "Enter your name",
-                    labelText: "Name",
-                    border: UnderlineInputBorder()),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextField(
-                controller: emailcon,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                    hintText: "Enter Email address",
-                    labelText: "Email Address",
-                    border: UnderlineInputBorder()),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextField(
-                controller: phonecon,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                    hintText: "Enter phone number",
-                    labelText: "Phone no",
-                    border: UnderlineInputBorder()),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-
-              TextFormField(
+          padding: const EdgeInsets.symmetric(horizontal: 25.0, vertical: 15.0),
+          child: Form(
+            child: Column(
+              children: [
+                Text(
+                  "Personal Information",
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontSize: 25,
+                  ),
+                ),
+                SizedBox(
+                  height: 40.0,
+                ),
+                TextField(
+                  controller: namecon,
+                  decoration: InputDecoration(
+                      hintText: "Enter your name",
+                      labelText: "Name",
+                      border: OutlineInputBorder()),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextField(
+                  controller: emailcon,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                      hintText: "Enter Email address",
+                      labelText: "Email Address",
+                      border: OutlineInputBorder()),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextField(
+                  controller: phonecon,
+                  keyboardType: TextInputType.phone,
+                  decoration: InputDecoration(
+                      hintText: "Enter phone number",
+                      labelText: "Phone no",
+                      border: OutlineInputBorder()),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextFormField(
                   controller: bdaycon,
                   readOnly: true,
                   onTap: () {
@@ -124,58 +127,57 @@ class _PersonalIntroState extends State<PersonalIntro> {
                     });
                   },
                   decoration: InputDecoration(
-                      hintText: _dateTime.toString(),
-                      labelText: "Birthday",
-                      focusedBorder: UnderlineInputBorder())),
-              // Visibility(
-              //     visible: _visible,
-              //     child: Text('pick a date'),
-              //     onPressed: ()  {
-              //       showDatePicker(
-              //           context: context,
-              //           initialDate: DateTime.now(),
-              //           firstDate: DateTime(1950),
-              //           lastDate: DateTime(2021));
-              //     }),
-              SizedBox(
-                height: 16,
-              ),
-              TextField(
-                controller: paddresscon,
-                decoration: InputDecoration(
-                    hintText: "Enter Permanent address",
-                    labelText: "Permenant Address",
-                    border: UnderlineInputBorder()),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextField(
-                controller: raddresscon,
-                decoration: InputDecoration(
-                    hintText: "Enter residential address",
-                    labelText: "Residential Address",
-                    border: UnderlineInputBorder()),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: RaisedButton(
-                    child: Text('Submit'),
+                    labelText: "Date Of Birth",
+                    border: OutlineInputBorder(),
+                  ),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextField(
+                  controller: paddresscon,
+                  decoration: InputDecoration(
+                      hintText: "Enter Permanent address",
+                      labelText: "Permanent Address",
+                      border: OutlineInputBorder()),
+                ),
+                SizedBox(
+                  height: 16,
+                ),
+                TextField(
+                  controller: raddresscon,
+                  decoration: InputDecoration(
+                      hintText: "Enter residential address",
+                      labelText: "Residential Address",
+                      border: OutlineInputBorder()),
+                ),
+                SizedBox(
+                  height: 10.0,
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: ElevatedButton(
+                    style: ButtonStyle(
+                      minimumSize: MaterialStateProperty.all(Size(
+                          screenWidth(context) * 0.45,
+                          screenHeight(context) * 0.06)),
+                      shape: MaterialStateProperty.all(
+                        RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(20.0),
+                        ),
+                      ),
+                    ),
                     onPressed: () {
-                      setState(() {
-                        _name = namecon.text;
-                        _email = emailcon.text;
-                        _phoneno = phonecon.text;
-                        _bday = bdaycon.text;
-                        _paddress = paddresscon.text;
-                        _raddress = raddresscon.text;
-                      });
-                    }),
-              )
-            ],
+                      
+                    },
+                    child: Text(
+                      'Submit',
+                      style: TextStyle(fontSize: 18.0),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

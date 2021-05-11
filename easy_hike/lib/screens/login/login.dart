@@ -1,5 +1,7 @@
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
+import 'package:easy_hike/screens/questions/personalintro.dart';
+import 'package:easy_hike/screens/questions/question.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:easy_hike/screens/signup/signup.dart';
 import 'package:easy_hike/widgets/or_divider.dart';
@@ -55,7 +57,7 @@ class Login extends StatelessWidget {
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => MainSearch(),
+                          builder: (BuildContext context) => PersonalIntro(),
                         ),
                       );
                     },

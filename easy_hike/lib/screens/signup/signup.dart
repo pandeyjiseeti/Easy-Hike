@@ -1,10 +1,12 @@
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/login/login.dart';
+import 'package:easy_hike/screens/questions/personalintro.dart';
 import 'package:easy_hike/screens/questions/question.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:easy_hike/widgets/or_divider.dart';
 import 'package:easy_hike/widgets/policy_dialog.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -53,11 +55,13 @@ class SignUp extends StatelessWidget {
                           SignInButton(
                     Buttons.GoogleDark,
                     onPressed: () async {
-                      await model.loginWithGoogle();
+                      User user = await model.loginWithGoogle();
+                      await model.addJobUser(user, user.displayName);
+                      print(user.displayName);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
-                          builder: (BuildContext context) => Question(),
+                          builder: (BuildContext context) => PersonalIntro(),
                         ),
                       );
                     },

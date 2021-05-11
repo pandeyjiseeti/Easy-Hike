@@ -1,6 +1,6 @@
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/search/job_tile.dart';
-import 'package:easy_hike/screens/search/profile.dart';
+import 'package:easy_hike/screens/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scoped_model/scoped_model.dart';
@@ -47,13 +47,13 @@ class _MainSearchState extends State<MainSearch> {
                 ),
               ),
             ),
-            ScopedModelDescendant<AuthModel>(
+            ScopedModelDescendant<AuthModel>( 
               builder: (context, widget, model) => IconButton(
                 color: Colors.black,
                 icon: const Icon(Icons.exit_to_app),
                 onPressed: () {
                   model.signOut();
-                  Navigator.pop(context);
+                  Navigator.popUntil(context, ModalRoute.withName('/login'));
                 },
               ),
             ),

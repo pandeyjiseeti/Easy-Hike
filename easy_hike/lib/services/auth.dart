@@ -6,19 +6,20 @@ class Auth {
 
   Stream<User> get user => auth.authStateChanges();
 
-  Future<String> createAccount({String email, String password}) async {
+  Future<User> createAccount({String email, String password}) async {
     try {
-      await auth.createUserWithEmailAndPassword(
-          email: email.trim(), password: password.trim());
-      return "Account Created";
+      UserCredential _userCredential =
+          await auth.createUserWithEmailAndPassword(
+              email: email.trim(), password: password.trim());
+      return _userCredential.user;
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      // return e.message;
     } catch (e) {
       rethrow;
     }
   }
 
-  Future<String> signInWithGoogle()  async {
+  Future<User> signInWithGoogle() async {
     final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
 
     final GoogleSignInAuthentication googleAuth =
@@ -30,10 +31,11 @@ class Auth {
     );
 
     try {
-      await auth.signInWithCredential(credential);
-      return "Logged in";
+      UserCredential _userCredential =
+          await auth.signInWithCredential(credential);
+      return _userCredential.user;
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      // return e.message;
     } catch (e) {
       rethrow;
     }

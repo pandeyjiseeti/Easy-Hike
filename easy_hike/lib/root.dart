@@ -11,6 +11,7 @@ class Root extends StatefulWidget {
 }
 
 class _RootState extends State<Root> {
+  bool _isProfileComplete = false;
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
