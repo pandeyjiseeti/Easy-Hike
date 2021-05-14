@@ -5,6 +5,7 @@ import 'package:easy_hike/screens/questions/question.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:easy_hike/screens/signup/signup.dart';
 import 'package:easy_hike/widgets/or_divider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
@@ -53,7 +54,8 @@ class Login extends StatelessWidget {
                           SignInButton(
                     Buttons.GoogleDark,
                     onPressed: () async {
-                      await model.loginWithGoogle();
+                      final User user = await model.loginWithGoogle();
+                      await model.addJobUser(user, user.displayName);
                       Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(

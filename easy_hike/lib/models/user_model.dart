@@ -13,7 +13,6 @@ class JobUser {
   final String dob;
   final String pAddress;
   final String rAddress;
-  final bool isProfileComplete;
 
   JobUser({
     this.uid,
@@ -23,7 +22,6 @@ class JobUser {
     this.dob,
     this.pAddress,
     this.rAddress,
-    this.isProfileComplete,
   });
 
   factory JobUser.fromDocument(DocumentSnapshot doc) {
@@ -35,9 +33,10 @@ class JobUser {
       dob: doc['dob'].toString(),
       pAddress: doc['pAddress'].toString(),
       rAddress: doc['rAddress'].toString(),
-      isProfileComplete: doc['isProfileComplete'],
     );
   }
 }
 
-class JobUserModel extends Model {}
+class JobUserModel extends Model {
+  
+}

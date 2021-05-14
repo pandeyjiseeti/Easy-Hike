@@ -1,28 +1,60 @@
+import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:flutter/material.dart';
 import 'personalintro.dart';
 
 class Question extends StatefulWidget {
+  Map<String, dynamic> profileInformation;
+  Question(this.profileInformation);
+
   @override
   _QuestionState createState() => _QuestionState();
 }
 
 class _QuestionState extends State<Question> {
-  String _description;
-  String _position;
-  String _company;
-  String _industry;
-  String _years;
+  TextEditingController descon;
+  TextEditingController poscon;
+  TextEditingController comcon;
+  TextEditingController indcon;
+  TextEditingController yearcon;
 
-  final descon = new TextEditingController();
-  final poscon = new TextEditingController();
-  final comcon = new TextEditingController();
-  final indcon = new TextEditingController();
-  final yearcon = new TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    descon = new TextEditingController();
+    poscon = new TextEditingController();
+    comcon = new TextEditingController();
+    indcon = new TextEditingController();
+    yearcon = new TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      persistentFooterButtons: [
+        Padding(
+          padding: const EdgeInsets.only(bottom: 10.0),
+          child: ElevatedButton(
+            style: ButtonStyle(
+              minimumSize: MaterialStateProperty.all(
+                  Size(screenWidth(context), screenHeight(context) * 0.07)),
+            ),
+            onPressed: () {
+              widget.profileInformation.addAll({
+                "Position": poscon.text,
+                "Description": descon.text,
+                "Company": comcon.text,
+                "Industry": indcon.text,
+                "Year": yearcon.text,
+              });
+            },
+            child: Text(
+              'ADD EXPERIENCE',
+              style: TextStyle(fontSize: 18.0),
+            ),
+          ),
+        )
+      ],
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -44,78 +76,70 @@ class _QuestionState extends State<Question> {
               ),
             },
             child: Text(
-              'Skip',
-              style: TextStyle(color: Colors.black),
+              'SKIP',
+              style: TextStyle(
+                color: Colors.grey,
+                fontSize: 16.0,
+              ),
             ),
           )
         ],
       ),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(8.0),
+          padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 15.0),
           child: Column(
             children: [
-              TextButton(
-                child: Text("Job Description"),
-                onPressed: () {},
-              ),
-              TextField(
-                controller: poscon,
-                decoration: InputDecoration(
-                    hintText: "Current/Last job position",
-                    labelText: "Job Position",
-                    border: OutlineInputBorder()),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextField(
-                controller: comcon,
-                decoration: InputDecoration(
-                    hintText: "Enter Company Name",
-                    labelText: "Company Name",
-                    border: OutlineInputBorder()),
-              ),
-              SizedBox(
-                height: 16,
-              ),
-              TextField(
-                controller: indcon,
-                decoration: InputDecoration(
-                    hintText: "Enter Industry Name",
-                    labelText: "Industry",
-                    border: OutlineInputBorder()),
-              ),
-              TextField(
-                controller: yearcon,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    hintText: "Years of Experience",
-                    labelText: "Years",
-                    border: OutlineInputBorder()),
-              ),
-              TextField(
-                controller: descon,
-                decoration: InputDecoration(
-                    hintText: "Enter descripion",
-                    labelText: "Describe your job",
-                    border: OutlineInputBorder()),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      _position = poscon.text;
-                      _description = descon.text;
-                      _company = comcon.text;
-                      _industry = indcon.text;
-                      _years = yearcon.text;
-                    });
-                  },
-                  child: Text('Submit'),
+              Text(
+                "Work Experience",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontSize: 25,
                 ),
-              )
+              ),
+              SizedBox(height: 40.0),
+              ListTileTheme(
+                  tileColor: Colors.grey[100],
+                  child: ExpansionTile(
+                      title: Text('Job Description',
+                          style: TextStyle(fontWeight: FontWeight.w500)))),
+              SizedBox(
+                height: 16,
+              ),
+              ListTileTheme(
+                  tileColor: Colors.grey[100],
+                  child: ExpansionTile(
+                      title: Text('Years of Experience',
+                          style: TextStyle(fontWeight: FontWeight.w500)))),
+              SizedBox(
+                height: 16,
+              ),
+              ListTileTheme(
+                  tileColor: Colors.grey[100],
+                  child: ExpansionTile(
+                      title: Text('Description',
+                          style: TextStyle(fontWeight: FontWeight.w500)))),
+              SizedBox(
+                height: 16,
+              ),
+              // TextField(
+              //   controller: yearcon,
+              //   keyboardType: TextInputType.number,
+              //   decoration: InputDecoration(
+              //       hintText: "Years of Experience",
+              //       labelText: "Years",
+              //       border: OutlineInputBorder()),
+              // ),
+              // SizedBox(
+              //   height: 16,
+              // ),
+              // TextField(
+              //   controller: descon,
+              //   decoration: InputDecoration(
+              //       hintText: "Enter descripion",
+              //       labelText: "Describe your job",
+              //       border: OutlineInputBorder()),
+              // ),
             ],
           ),
         ),

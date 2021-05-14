@@ -55,7 +55,7 @@ class SignUp extends StatelessWidget {
                           SignInButton(
                     Buttons.GoogleDark,
                     onPressed: () async {
-                      User user = await model.loginWithGoogle();
+                      final User user = await model.loginWithGoogle();
                       await model.addJobUser(user, user.displayName);
                       print(user.displayName);
                       Navigator.pushReplacement(

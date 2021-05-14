@@ -8,6 +8,8 @@ class AuthModel extends Model {
   final Auth _authService = locator<Auth>();
   final DatabaseHelper _databaseService = locator<DatabaseHelper>();
 
+  Stream<User> get user => _authService.user;
+
   Future<String> login(String email, String password) async {
     return _authService.signIn(email: email, password: password);
   }
