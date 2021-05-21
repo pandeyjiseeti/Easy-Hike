@@ -7,6 +7,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../service_locator.dart';
 import 'search/../description.dart';
 import 'search/../filter_bottom_sheet.dart';
+import 'package:easy_hike/widgets/settings.dart';
 
 class MainSearch extends StatefulWidget {
   @override
@@ -21,6 +22,7 @@ class _MainSearchState extends State<MainSearch> {
     return ScopedModel(
       model: locator<AuthModel>(),
       child: Scaffold(
+        drawer: Settings(),
         backgroundColor: Colors.white,
         appBar: AppBar(
           elevation: 0,
