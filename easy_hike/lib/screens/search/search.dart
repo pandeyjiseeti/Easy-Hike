@@ -1,17 +1,13 @@
 import 'package:easy_hike/models/auth_model.dart';
 import 'package:easy_hike/screens/search/job_tile.dart';
 import 'package:easy_hike/screens/profile/profile.dart';
+import 'package:easy_hike/widgets/navigation_drawer.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:scoped_model/scoped_model.dart';
 import '../../service_locator.dart';
-import 'search/../description.dart';
 import 'search/../filter_bottom_sheet.dart';
-<<<<<<< HEAD
 import 'package:easy_hike/screens/questions/personalintro.dart';
-=======
-import 'package:easy_hike/widgets/settings.dart';
->>>>>>> 9f034457bd0b27bf28d4868f311965f59ec1d884
+// import 'package:easy_hike/widgets/settings.dart';
 
 class MainSearch extends StatefulWidget {
   @override
@@ -19,7 +15,21 @@ class MainSearch extends StatefulWidget {
 }
 
 class _MainSearchState extends State<MainSearch> {
-  final TextEditingController _controller = TextEditingController();
+  TextEditingController _controller;
+  GlobalKey<ScaffoldState> _key;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TextEditingController();
+    _key = GlobalKey<ScaffoldState>();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,60 +40,36 @@ class _MainSearchState extends State<MainSearch> {
             WillPopScope(
           onWillPop: () async => buildAlertDialog(context, model),
           child: Scaffold(
+            key: _key,
+            drawer: NavigationDrawer(),
             backgroundColor: Colors.white,
             appBar: AppBar(
               elevation: 0,
               backgroundColor: Colors.white,
               automaticallyImplyLeading: false,
-              leading: Icon(
-                Icons.sort_rounded,
-      child: Scaffold(
-        drawer: Settings(),
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: Colors.white,
-          automaticallyImplyLeading: false,
-          leading: Icon(
-            Icons.sort_rounded,
-            color: Colors.black,
-          ),
-          title: Text('Back'),
-          actions: [
-            Padding(
-              padding: EdgeInsets.only(right: 8.0),
-              child: CircleAvatar(
-                radius: 15.0,
-                child: IconButton(
-                  icon: Icon(Icons.account_circle),
-                  onPressed: () => {
+              leading: IconButton(
+                icon: Icon(
+                  Icons.sort_rounded,
+                  color: Colors.black,
+                ),
+                onPressed: () => _key.currentState.openDrawer(),
+              ),
+              actions: [
+                GestureDetector(
+                  onTap: () => {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                      MaterialPageRoute(
+                        builder: (context) => ProfilePage(),
+                      ),
                     ),
                   },
-                ),
-              ),
-            ),
-            ScopedModelDescendant<AuthModel>( 
-              builder: (context, widget, model) => IconButton(
-                color: Colors.black,
-              ),
-              title: Text('Back'),
-              actions: [
-                Padding(
-                  padding: EdgeInsets.only(right: 8.0),
                   child: CircleAvatar(
-                    radius: 15.0,
-                    child: IconButton(
-                      icon: Icon(Icons.account_circle),
-                      onPressed: () => {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfilePage()),
-                        ),
-                      },
+                    backgroundColor: Colors.grey[300],
+                    radius: 23.0,
+                    child: Image.network(
+                      'https://www.freeiconspng.com/uploads/account-icon-8.png',
+                      width: 28.0,
                     ),
                   ),
                 ),
@@ -110,7 +96,7 @@ class _MainSearchState extends State<MainSearch> {
                   Text(
                     'Search for jobs',
                     style:
-                        TextStyle(fontWeight: FontWeight.w400, fontSize: 25.0),
+                        TextStyle(fontWeight: FontWeight.w400, fontSize: 28.0),
                   ),
                   SizedBox(
                     height: 40.0,

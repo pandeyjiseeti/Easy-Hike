@@ -12,6 +12,6 @@ void setupLocator() {
   locator.registerLazySingleton(() => Auth());
   locator.registerLazySingleton(() => AuthModel());
   locator.registerLazySingleton(() => DatabaseHelper());
-  locator.registerLazySingleton(() => JobUserModel());
+  // locator.registerLazySingleton(() => JobUserModel());
   locator.registerLazySingleton(() => QuestionModel());
 }

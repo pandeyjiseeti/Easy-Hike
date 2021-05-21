@@ -13,18 +13,21 @@ class JobUser {
   final String dob;
   final String pAddress;
   final String rAddress;
+  final String role;
   final List<Map<String, dynamic>> workExperience;
+  final String profileImage;
 
-  JobUser({
-    this.workExperience,
-    this.uid,
-    this.fullName,
-    this.email,
-    this.phoneNo,
-    this.dob,
-    this.pAddress,
-    this.rAddress,
-  });
+  JobUser(
+      {this.workExperience,
+      this.uid,
+      this.fullName,
+      this.email,
+      this.phoneNo,
+      this.dob,
+      this.pAddress,
+      this.rAddress,
+      this.profileImage,
+      this.role});
 
   factory JobUser.fromDocument(DocumentSnapshot doc) {
     return JobUser(
@@ -35,9 +38,9 @@ class JobUser {
       dob: doc['dob'].toString(),
       pAddress: doc['pAddress'].toString(),
       rAddress: doc['rAddress'].toString(),
+      profileImage: doc['profileImage'].toString(),
+      role: doc['role'].toString(),
       // workExperience: doc['workExperience'],
     );
   }
 }
-
-class JobUserModel extends Model {}

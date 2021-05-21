@@ -86,7 +86,11 @@ class _WorkExperienceState extends State<WorkExperience> {
                     ),
                     onPressed: () async {
                       model.profileInformation.addAll(
-                        {'isProfileComplete': true},
+                        {
+                          'isProfileComplete': true,
+                          'profileImage':
+                              'https://www.freeiconspng.com/uploads/account-icon-8.png'
+                        },
                       );
                       uid = (await authModel.user.take(1).toList())[0]
                           .uid

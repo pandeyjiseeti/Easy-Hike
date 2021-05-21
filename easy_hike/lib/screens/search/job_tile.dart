@@ -35,7 +35,10 @@ class JobTile extends StatelessWidget {
           border: Border.all(color: Colors.grey[300]),
         ),
         child: ListTile(
-          leading: FaIcon(FontAwesomeIcons.google),
+          leading: Padding(
+            padding: const EdgeInsets.only(top: 15.0),
+            child: FaIcon(FontAwesomeIcons.google),
+          ),
           title: Text(
             '$jobTitle',
             style: TextStyle(
@@ -46,7 +49,7 @@ class JobTile extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                height: 5.0,
+                height: 15.0,
               ),
               Text(
                 "$company • $location",
@@ -55,7 +58,7 @@ class JobTile extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 5.0,
+                height: 15.0,
               ),
               Text(
                 "$salary",

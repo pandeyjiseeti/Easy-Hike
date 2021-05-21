@@ -9,12 +9,41 @@ class ProfilePage extends StatefulWidget {
 
 class _ProfilePageState extends State<ProfilePage> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
-        title: Text('Profile'),
+        backgroundColor: Colors.white,
+        elevation: 0,
+        automaticallyImplyLeading: true,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.black,
+          onPressed: () => Navigator.pop(context),
+        ),
+        title: Text(
+          'Profile',
+          style: TextStyle(
+            color: Colors.black,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.edit,
+              color: Color.fromRGBO(234, 97, 97, 1),
+            ),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: SingleChildScrollView(
+        physics: BouncingScrollPhysics(),
         child: ConstrainedBox(
           constraints: BoxConstraints(),
           child: Column(
