@@ -129,7 +129,7 @@ class _LoginFormState extends State<LoginForm> {
             textAlign: TextAlign.center,
             text: TextSpan(
               text: "Forgot Password?",
-              style: const TextStyle(color: Colors.blue),
+              style: const TextStyle(color: Color.fromRGBO(234, 97, 97, 1)),
               recognizer: TapGestureRecognizer()
                 ..onTap = () => Navigator.pushReplacement(
                       context,

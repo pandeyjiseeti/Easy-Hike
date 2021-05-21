@@ -1,5 +1,6 @@
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/question_model.dart';
+import 'package:easy_hike/screens/questions/work_experience.dart';
 import 'package:easy_hike/screens/search/search.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -133,7 +134,7 @@ class _QuestionState extends State<Question> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => MainSearch(),
+                              builder: (context) => WorkExperience(),
                             ),
                           );
                         },
@@ -167,7 +168,7 @@ class _QuestionState extends State<Question> {
                   Text(
                     "Work Experience",
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Color.fromRGBO(234, 97, 97, 1),
                       fontSize: 30,
                     ),
                   ),
@@ -221,7 +222,7 @@ class _QuestionState extends State<Question> {
                                         errorText: '* Required'),
                                     decoration: InputDecoration(
                                       labelStyle: TextStyle(
-                                        color: Colors.blue,
+                                        color: Color.fromRGBO(234, 97, 97, 1),
                                         fontSize: 18.0,
                                       ),
                                       floatingLabelBehavior:
@@ -242,7 +243,7 @@ class _QuestionState extends State<Question> {
                                         errorText: '* Required'),
                                     decoration: InputDecoration(
                                       labelStyle: TextStyle(
-                                        color: Colors.blue,
+                                        color: Color.fromRGBO(234, 97, 97, 1),
                                         fontSize: 18.0,
                                       ),
                                       floatingLabelBehavior:
@@ -263,7 +264,7 @@ class _QuestionState extends State<Question> {
                                         errorText: '* Required'),
                                     decoration: InputDecoration(
                                       labelStyle: TextStyle(
-                                        color: Colors.blue,
+                                        color: Color.fromRGBO(234, 97, 97, 1),
                                         fontSize: 18.0,
                                       ),
                                       floatingLabelBehavior:
@@ -306,7 +307,8 @@ class _QuestionState extends State<Question> {
                                             Text(
                                               "START DATE",
                                               style: TextStyle(
-                                                color: Colors.blue,
+                                                color: Color.fromRGBO(
+                                                    234, 97, 97, 1),
                                                 fontSize: 14.0,
                                               ),
                                             ),
@@ -382,7 +384,8 @@ class _QuestionState extends State<Question> {
                                                 Text(
                                                   "LAST DATE",
                                                   style: TextStyle(
-                                                    color: Colors.blue,
+                                                    color: Color.fromRGBO(
+                                                        234, 97, 97, 1),
                                                     fontSize: 14.0,
                                                   ),
                                                 ),
@@ -504,7 +507,7 @@ class _QuestionState extends State<Question> {
                                           MaxLengthEnforcement.enforced,
                                       decoration: InputDecoration(
                                         labelStyle: TextStyle(
-                                          color: Colors.blue,
+                                          color: Color.fromRGBO(234, 97, 97, 1),
                                           fontSize: 18.0,
                                         ),
                                         floatingLabelBehavior:

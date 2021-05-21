@@ -70,7 +70,8 @@ class _WorkExperienceState extends State<WorkExperience> {
                     style: ButtonStyle(
                       shape: MaterialStateProperty.all(
                         RoundedRectangleBorder(
-                          side: BorderSide(color: Colors.blue),
+                          side:
+                              BorderSide(color: Color.fromRGBO(234, 97, 97, 1)),
                         ),
                       ),
                       elevation: MaterialStateProperty.all(0),
@@ -105,7 +106,9 @@ class _WorkExperienceState extends State<WorkExperience> {
                     },
                     child: Text(
                       'Done!',
-                      style: TextStyle(fontSize: 18.0, color: Colors.blue),
+                      style: TextStyle(
+                          fontSize: 18.0,
+                          color: Color.fromRGBO(234, 97, 97, 1)),
                     ),
                   ),
                 ),
@@ -126,7 +129,7 @@ class _WorkExperienceState extends State<WorkExperience> {
                   Text(
                     "Work Experience",
                     style: TextStyle(
-                      color: Colors.blue,
+                      color: Color.fromRGBO(234, 97, 97, 1),
                       fontSize: 30,
                     ),
                   ),
@@ -141,17 +144,17 @@ class _WorkExperienceState extends State<WorkExperience> {
                         company:
                             model.workExperience[index]['Company'].toString(),
                         years: yearCalculate(
-                            model.workExperience[index]['endDateYear']
-                                .toString(),
-                            model.workExperience[index]['startDateYear']
-                                .toString()),
+                          model.workExperience[index]['endDateYear'].toString(),
+                          model.workExperience[index]['startDateYear']
+                              .toString(),
+                        ),
                         position:
                             model.workExperience[index]['Position'].toString(),
                         timeline: timelineCalculate(
-                            model.workExperience[index]['endDateYear']
-                                .toString(),
-                            model.workExperience[index]['startDateYear']
-                                .toString()),
+                          model.workExperience[index]['endDateYear'].toString(),
+                          model.workExperience[index]['startDateYear']
+                              .toString(),
+                        ),
                         description: model.workExperience[index]['Description']
                             .toString(),
                       ),
@@ -224,7 +227,7 @@ class WorkExperienceTile extends StatelessWidget {
           Expanded(
             child: Text(
               position.toUpperCase(),
-              style: TextStyle(color: Colors.blue),
+              style: TextStyle(color: Color.fromRGBO(234, 97, 97, 1)),
             ),
           ),
           Text(

@@ -70,7 +70,8 @@ class Login extends StatelessWidget {
                     style: const TextStyle(color: Colors.grey),
                     children: [
                       TextSpan(
-                        style: const TextStyle(color: Colors.blue),
+                        style: const TextStyle(
+                            color: Color.fromRGBO(234, 97, 97, 1)),
                         text: " Sign up ",
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Navigator.pushReplacement(

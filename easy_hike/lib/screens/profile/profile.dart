@@ -1,6 +1,16 @@
+import 'package:avatar_letter/avatar_letter.dart';
+import 'package:easy_hike/config/screen_size_reducers.dart';
+import 'package:easy_hike/models/profile_model.dart';
+import 'package:easy_hike/models/user_model.dart';
+import 'package:easy_hike/screens/questions/work_experience.dart';
 import 'package:flutter/material.dart';
+import 'package:random_color/random_color.dart';
+import 'package:scoped_model/scoped_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:timeline_tile/timeline_tile.dart';
+import 'package:intl/intl.dart';
+
+import '../../service_locator.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -8,8 +18,25 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePageState extends State<ProfilePage> {
+  GlobalKey<FormState> globalKey;
+  GlobalKey<FormState> globalKey2;
+  GlobalKey<FormState> globalKey3;
+  GlobalKey<FormState> globalKey4;
+  TextEditingController textEditingController;
+  TextEditingController textEditingController2;
+  TextEditingController textEditingController3;
+  TextEditingController textEditingController4;
+
   @override
   void initState() {
+    globalKey2 = GlobalKey<FormState>();
+    globalKey3 = GlobalKey<FormState>();
+    globalKey = GlobalKey<FormState>();
+    globalKey4 = GlobalKey<FormState>();
+    textEditingController = TextEditingController();
+    textEditingController2 = TextEditingController();
+    textEditingController3 = TextEditingController();
+    textEditingController4 = TextEditingController();
     super.initState();
   }
 
@@ -46,183 +73,644 @@ class _ProfilePageState extends State<ProfilePage> {
         physics: BouncingScrollPhysics(),
         child: ConstrainedBox(
           constraints: BoxConstraints(),
-          child: Column(
-            children: [
-              Padding(
-                padding: EdgeInsets.all(15.0),
-                child: Center(
-                  child: Column(
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(20.0),
-                        child: Image.network(
-                          'https://crhscountyline.com/wp-content/uploads/2020/03/Capture.png',
-                          width: 150.0,
-                          height: 150.0,
+          child: ScopedModel<ProfileModel>(
+            model: locator<ProfileModel>(),
+            child: ScopedModelDescendant<ProfileModel>(
+              builder:
+                  (BuildContext context, Widget child, ProfileModel model) =>
+                      FutureBuilder(
+                future: model.setData(),
+                builder:
+                    (BuildContext context, AsyncSnapshot<JobUser> jobSnapshot) {
+                  if (jobSnapshot.hasData) {
+                    return Column(
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(top: 15.0),
+                          child: Center(
+                            child: Column(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.network(
+                                    jobSnapshot.data.profileImage,
+                                    width: 150.0,
+                                    height: 150.0,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 10.0,
+                                ),
+                                Text(
+                                  jobSnapshot.data.fullName,
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.w800,
+                                      fontSize: 32.0),
+                                  textAlign: TextAlign.center,
+                                ),
+                                jobSnapshot.data.role == 'null'
+                                    ? Text('')
+                                    : Text(
+                                        jobSnapshot.data.role,
+                                        style: TextStyle(
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 15.0),
+                                        textAlign: TextAlign.center,
+                                      ),
+                              ],
+                            ),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 10.0,
-                      ),
-                      Text(
-                        'Gloria Russell',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w800, fontSize: 32.0),
-                        textAlign: TextAlign.center,
-                      ),
-                      Text(
-                        'UI / UX Designer',
-                        style: TextStyle(
-                            fontWeight: FontWeight.w400, fontSize: 15.0),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              bottom: 20.0, left: 20.0, right: 20.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              socialMediaLinks('assets/linkedin.png',
+                                  'https://www.linkedin.com/feed/'),
+                              socialMediaLinks(
+                                  'assets/github.png', 'https://github.com/'),
+                              socialMediaLinks(
+                                  'assets/twitter.png', 'https://twitter.com/'),
+                              socialMediaLinks('assets/google-plus.png',
+                                  'https://myaccount.google.com/intro/profile'),
+                            ],
+                          ),
+                        ),
+                        Text(
+                          'Skills',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 24.0),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        if (jobSnapshot.data.skills.isNotEmpty)
+                          SizedBox(
+                            height: 100.0,
+                            child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: jobSnapshot.data.skills
+                                    .map<Widget>(
+                                      (skill) => skillCard(
+                                        skill.toString(),
+                                      ),
+                                    )
+                                    .toList()),
+                          )
+                        else
+                          Center(
+                            child: Text('No Skills Present'),
+                          ),
+                        SizedBox(height: 10.0),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Color.fromRGBO(234, 97, 97, 1)),
+                              ),
+                            ),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            elevation: MaterialStateProperty.all(0),
+                            minimumSize: MaterialStateProperty.all(
+                              Size(
+                                screenWidth(context) * 0.35,
+                                screenHeight(context) * 0.035,
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            showModalBottomSheet(
+                              isDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                String skill;
+
+                                return Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0, horizontal: 10.0),
+                                  child: Form(
+                                    key: globalKey,
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        TextFormField(
+                                          controller: TextEditingController(
+                                              text: skill),
+                                          decoration: InputDecoration(
+                                            hintText: "Enter Your Skill Name",
+                                            fillColor: Colors.grey[200],
+                                            border: OutlineInputBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(10.0),
+                                            ),
+                                          ),
+                                          onChanged: (val) => skill = val,
+                                        ),
+                                        const SizedBox(height: 10.0),
+                                        ElevatedButton(
+                                          onPressed: () async {
+                                            List<dynamic> skills =
+                                                jobSnapshot.data.skills;
+                                            skills.add(skill);
+                                            await model.setField(
+                                              {
+                                                'skills': skills,
+                                              },
+                                            );
+                                            Navigator.pop(context);
+                                          },
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    const Color.fromRGBO(
+                                                        234, 97, 97, 1)),
+                                            elevation:
+                                                MaterialStateProperty.all(0),
+                                            minimumSize:
+                                                MaterialStateProperty.all(
+                                              Size(
+                                                screenWidth(context) * 0.5,
+                                                screenHeight(context) * 0.05,
+                                              ),
+                                            ),
+                                          ),
+                                          child: const Text(
+                                            'ADD SKILL',
+                                            style: TextStyle(fontSize: 18.0),
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: const Text(
+                            'ADD SKILLS',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Color.fromRGBO(234, 97, 97, 1),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 30.0,
+                        ),
+                        Text(
+                          'Experience',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 24.0),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Column(
+                          children: jobSnapshot.data.workExperience.isNotEmpty
+                              ? jobSnapshot.data.workExperience
+                                  .map(
+                                    (workExperience) => TimelineTile(
+                                      isFirst: jobSnapshot.data.workExperience
+                                              .indexOf(workExperience) ==
+                                          0,
+                                      isLast: jobSnapshot.data.workExperience
+                                              .indexOf(workExperience) ==
+                                          jobSnapshot
+                                                  .data.workExperience.length -
+                                              1,
+                                      endChild: WorkExperienceTile(
+                                        company: workExperience['Company']
+                                            .toString(),
+                                        years: yearCalculate(
+                                            workExperience['endDateYear']
+                                                .toString(),
+                                            workExperience['startDateYear']
+                                                .toString()),
+                                        position: workExperience['Position']
+                                            .toString(),
+                                        timeline: timelineCalculate(
+                                            workExperience['endDateYear']
+                                                .toString(),
+                                            workExperience['startDateYear']
+                                                .toString()),
+                                        description:
+                                            workExperience['Description']
+                                                .toString(),
+                                      ),
+                                      beforeLineStyle: LineStyle(
+                                          color: Colors.grey, thickness: 1.0),
+                                      afterLineStyle: LineStyle(
+                                          color: Colors.grey, thickness: 1.0),
+                                      indicatorStyle: IndicatorStyle(
+                                        width: 9.0,
+                                        color: Colors.grey,
+                                        padding: EdgeInsets.fromLTRB(
+                                            4.0, 5.0, 4.0, 5.0),
+                                      ),
+                                    ),
+                                  )
+                                  .toList()
+                              : [
+                                  Center(
+                                    child: Text('No Experience Present'),
+                                  ),
+                                ],
+                        ),
+                        SizedBox(height: 10.0),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Color.fromRGBO(234, 97, 97, 1)),
+                              ),
+                            ),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            elevation: MaterialStateProperty.all(0),
+                            minimumSize: MaterialStateProperty.all(
+                              Size(
+                                screenWidth(context) * 0.35,
+                                screenHeight(context) * 0.035,
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            await Navigator.pushNamed(context, '/question');
+                            
+                          },
+                          child: Text(
+                            'ADD EXPERIENCE',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Color.fromRGBO(234, 97, 97, 1),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        Text(
+                          'Education',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 24.0),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Column(
+                          children: jobSnapshot.data.education.isNotEmpty
+                              ? jobSnapshot.data.education
+                                  .map((education) => educationTile(
+                                      schoolName:
+                                          education['schoolName'].toString(),
+                                      course: education['course'].toString(),
+                                      timePeriod:
+                                          education['timePeriod'].toString()))
+                                  .toList()
+                              : [
+                                  Center(
+                                    child: Text('No Education Present'),
+                                  ),
+                                ],
+                        ),
+                        SizedBox(height: 10.0),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Color.fromRGBO(234, 97, 97, 1)),
+                              ),
+                            ),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            elevation: MaterialStateProperty.all(0),
+                            minimumSize: MaterialStateProperty.all(
+                              Size(
+                                screenWidth(context) * 0.35,
+                                screenHeight(context) * 0.035,
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            showModalBottomSheet(
+                              isDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                String school, course, timePeriod;
+                                return SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 10.0),
+                                    child: Form(
+                                      key: globalKey3,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          TextFormField(
+                                            controller: TextEditingController(
+                                                text: school),
+                                            decoration: InputDecoration(
+                                              hintText:
+                                                  "Enter Your School/Institution Name",
+                                              fillColor: Colors.grey[200],
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
+                                            onChanged: (val) => school = val,
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          TextFormField(
+                                            controller: TextEditingController(
+                                                text: course),
+                                            decoration: InputDecoration(
+                                              hintText:
+                                                  "Enter Your Grade/Course/Program Name",
+                                              fillColor: Colors.grey[200],
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
+                                            onChanged: (val) => course = val,
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          TextFormField(
+                                            controller: TextEditingController(
+                                                text: timePeriod),
+                                            decoration: InputDecoration(
+                                              hintText:
+                                                  "Enter your Time Period(Start Date - End Date)",
+                                              fillColor: Colors.grey[200],
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
+                                            onChanged: (val) =>
+                                                timePeriod = val,
+                                          ),
+                                          const SizedBox(height: 10.0),
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              List<dynamic> education =
+                                                  jobSnapshot.data.education;
+                                              education.add({
+                                                'schoolName': school,
+                                                'course': course,
+                                                'timePeriod': timePeriod,
+                                              });
+                                              await model.setField(
+                                                {
+                                                  'education': education,
+                                                },
+                                              );
+                                              Navigator.pop(context);
+                                            },
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      const Color.fromRGBO(
+                                                          234, 97, 97, 1)),
+                                              elevation:
+                                                  MaterialStateProperty.all(0),
+                                              minimumSize:
+                                                  MaterialStateProperty.all(
+                                                Size(
+                                                  screenWidth(context) * 0.5,
+                                                  screenHeight(context) * 0.05,
+                                                ),
+                                              ),
+                                            ),
+                                            child: const Text(
+                                              'ADD EDUCATION',
+                                              style: TextStyle(fontSize: 18.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Text(
+                            'ADD EDUCATION',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Color.fromRGBO(234, 97, 97, 1),
+                            ),
+                          ),
+                        ),
+                        SizedBox(
+                          height: 30.0,
+                        ),
+                        Text(
+                          'Licenses & certifications',
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontWeight: FontWeight.w600, fontSize: 24.0),
+                        ),
+                        SizedBox(
+                          height: 10.0,
+                        ),
+                        Column(
+                          children: jobSnapshot.data.licenses.isNotEmpty
+                              ? jobSnapshot.data.licenses
+                                  .map(
+                                    (license) => licensesTile(
+                                      courseName:
+                                          license['courseName'].toString(),
+                                      courseSite:
+                                          license['courseSite'].toString(),
+                                      issuedData:
+                                          license['issuedDate'].toString(),
+                                      credentialId:
+                                          license['credentialId'].toString(),
+                                    ),
+                                  )
+                                  .toList()
+                              : [
+                                  Center(
+                                    child: Text(
+                                        'No Licenses & Certifications Present'),
+                                  ),
+                                ],
+                        ),
+                        SizedBox(height: 10.0),
+                        ElevatedButton(
+                          style: ButtonStyle(
+                            shape: MaterialStateProperty.all(
+                              RoundedRectangleBorder(
+                                side: BorderSide(
+                                    color: Color.fromRGBO(234, 97, 97, 1)),
+                              ),
+                            ),
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.white),
+                            elevation: MaterialStateProperty.all(0),
+                            minimumSize: MaterialStateProperty.all(
+                              Size(
+                                screenWidth(context) * 0.35,
+                                screenHeight(context) * 0.035,
+                              ),
+                            ),
+                          ),
+                          onPressed: () async {
+                            showModalBottomSheet(
+                              isDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                String courseName,
+                                    courseSite,
+                                    issuedDate,
+                                    credentialId;
+                                return SingleChildScrollView(
+                                  child: Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 8.0, horizontal: 10.0),
+                                    child: Form(
+                                      key: globalKey4,
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          TextFormField(
+                                            controller: textEditingController,
+                                            decoration: InputDecoration(
+                                              hintText: "Enter Course Name",
+                                              fillColor: Colors.grey[200],
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          TextFormField(
+                                            controller: textEditingController2,
+                                            decoration: InputDecoration(
+                                              hintText: "Enter Website Name",
+                                              fillColor: Colors.grey[200],
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          TextFormField(
+                                            controller: textEditingController3,
+                                            decoration: InputDecoration(
+                                              hintText: "Enter Issued Date",
+                                              fillColor: Colors.grey[200],
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
+                                            onTap: () => _selectdate(context),
+                                          ),
+                                          SizedBox(
+                                            height: 10.0,
+                                          ),
+                                          TextFormField(
+                                            controller: textEditingController4,
+                                            decoration: InputDecoration(
+                                              hintText: "Enter Credential Id",
+                                              fillColor: Colors.grey[200],
+                                              border: OutlineInputBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(10.0),
+                                              ),
+                                            ),
+                                          ),
+                                          const SizedBox(height: 10.0),
+                                          ElevatedButton(
+                                            onPressed: () async {
+                                              List<dynamic> licenses =
+                                                  jobSnapshot.data.licenses;
+                                              licenses.add({
+                                                'courseName':
+                                                    textEditingController.text,
+                                                'courseSite':
+                                                    textEditingController2.text,
+                                                'issuedDate':
+                                                    textEditingController3.text,
+                                                'credentialId':
+                                                    textEditingController4.text,
+                                              });
+                                              await model.setField(
+                                                {
+                                                  'licenses': licenses,
+                                                },
+                                              );
+                                              Navigator.pop(context);
+                                            },
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                      const Color.fromRGBO(
+                                                          234, 97, 97, 1)),
+                                              elevation:
+                                                  MaterialStateProperty.all(0),
+                                              minimumSize:
+                                                  MaterialStateProperty.all(
+                                                Size(
+                                                  screenWidth(context) * 0.5,
+                                                  screenHeight(context) * 0.05,
+                                                ),
+                                              ),
+                                            ),
+                                            child: const Text(
+                                              'ADD LICENSES & CERTS',
+                                              style: TextStyle(fontSize: 18.0),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          },
+                          child: Text(
+                            'ADD LICENSES & CERTS',
+                            style: TextStyle(
+                              fontSize: 18.0,
+                              color: Color.fromRGBO(234, 97, 97, 1),
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  } else {
+                    return Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+                },
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 40.0,
-                  ),
-                  socialMediaLinks(
-                      'assets/linkedin.png', 'https://www.linkedin.com/feed/'),
-                  socialMediaLinks('assets/github.png', 'https://github.com/'),
-                  socialMediaLinks(
-                      'assets/twitter.png', 'https://twitter.com/'),
-                  socialMediaLinks('assets/google-plus.png',
-                      'https://myaccount.google.com/intro/profile'),
-                  SizedBox(
-                    width: 40.0,
-                  ),
-                ],
-              ),
-              Text(
-                'Skills',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24.0),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Container(
-                height: 100.0,
-                child: ListView(
-                  scrollDirection: Axis.horizontal,
-                  children: [
-                    skillCard('Figma'),
-                    skillCard('Adobe'),
-                    skillCard('Sketch'),
-                    skillCard('Flutter'),
-                    skillCard('Dart'),
-                  ],
-                ),
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                'Experience',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24.0),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Column(
-                children: [
-                  experienceTile(
-                      position: 'Chief Executive Officer',
-                      companyName: 'Facebook',
-                      timePeriod: 'February 2004 - March 2104',
-                      isFirstTile: true),
-                  experienceTile(
-                      position: 'Chief Operating Officer',
-                      companyName: 'Amazon',
-                      timePeriod: 'July 1994 - August 2094'),
-                  experienceTile(
-                      position: 'Chief Financial Officer',
-                      companyName: 'Apple',
-                      timePeriod: 'April 1976 - May 2076'),
-                  experienceTile(
-                      position: 'Chief Marketing Officer',
-                      companyName: 'Netflix',
-                      timePeriod: 'August 1997 - September 2097'),
-                  experienceTile(
-                      position: 'Chief Technology Officer',
-                      companyName: 'Google',
-                      timePeriod: 'September 1998 - October 2098',
-                      isLastTile: true),
-                ],
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                'Education',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24.0),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Column(
-                children: [
-                  educationTile(
-                      schoolName: 'Hardvard University',
-                      course: 'B.Tech.',
-                      timePeriod: '2010 - 2020'),
-                  educationTile(
-                      schoolName: 'Massachusetts Institute of Technology',
-                      course: 'B.Tech.',
-                      timePeriod: '2011 - 2021'),
-                  educationTile(
-                      schoolName: 'Stanford University',
-                      course: 'B.Tech.',
-                      timePeriod: '2012 - 2022'),
-                  educationTile(
-                      schoolName: 'University of Oxford',
-                      course: 'B.Tech.',
-                      timePeriod: '2013 - 2023'),
-                ],
-              ),
-              SizedBox(
-                height: 20.0,
-              ),
-              Text(
-                'Licenses & certifications',
-                textAlign: TextAlign.left,
-                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 24.0),
-              ),
-              SizedBox(
-                height: 10.0,
-              ),
-              Column(
-                children: [
-                  licensesTile(
-                      courseName: 'Python',
-                      courseSite: 'Udemy',
-                      issuedData: 'July 2020',
-                      credentialId: 'Credential ID - UC-789645'),
-                  licensesTile(
-                      courseName: 'Java',
-                      courseSite: 'Udacity',
-                      issuedData: 'July 2021',
-                      credentialId: 'Credential ID - UN-2158897'),
-                  licensesTile(
-                      courseName: 'C++',
-                      courseSite: 'Coursera',
-                      issuedData: 'July 2022',
-                      credentialId: 'Credential ID - CY-4562133'),
-                  licensesTile(
-                      courseName: 'Ruby',
-                      courseSite: 'Upgrad',
-                      issuedData: 'July 2023',
-                      credentialId: 'Credential ID - UE-15937185'),
-                ],
-              ),
-            ],
+            ),
           ),
         ),
       ),
@@ -260,6 +748,25 @@ class _ProfilePageState extends State<ProfilePage> {
     }
   }
 
+  DateTime _dateTime = DateTime.utc(2003, 5, 12);
+
+  final DateFormat _dateFormatter = DateFormat('dd-MM-yyyy');
+
+  Future<void> _selectdate(BuildContext context) async {
+    final DateTime _datepicker = await showDatePicker(
+      context: context,
+      initialDate: _dateTime,
+      firstDate: DateTime(1940),
+      lastDate: DateTime(2003, 5, 12),
+      initialDatePickerMode: DatePickerMode.day,
+    );
+
+    if (_datepicker != null) {
+      _dateTime = _datepicker;
+      textEditingController3.text = _dateFormatter.format(_dateTime);
+    }
+  }
+
   Container skillCard(String skillName) {
     return Container(
       padding: const EdgeInsets.only(left: 4.0, right: 4.0),
@@ -271,17 +778,26 @@ class _ProfilePageState extends State<ProfilePage> {
         ),
         child: Column(
           children: [
-            Placeholder(
-              fallbackHeight: 50.0,
-              fallbackWidth: 50.0,
+            const SizedBox(
+              height: 10.0,
             ),
-            SizedBox(
-              height: 15.0,
+            AvatarLetter(
+              size: 50,
+              backgroundColor: RandomColor()
+                  .randomColor(colorBrightness: ColorBrightness.dark),
+              textColor: Colors.white,
+              fontSize: 20,
+              upperCase: true,
+              letterType: LetterType.Circular,
+              text: skillName,
+            ),
+            const SizedBox(
+              height: 8.0,
             ),
             Text(
               skillName,
               style: TextStyle(
-                fontWeight: FontWeight.w200,
+                fontWeight: FontWeight.w400,
               ),
             ),
           ],
@@ -290,62 +806,50 @@ class _ProfilePageState extends State<ProfilePage> {
     );
   }
 
-  SizedBox experienceTile(
-      {String position,
-      String companyName,
-      String timePeriod,
-      bool isFirstTile = false,
-      bool isLastTile = false}) {
-    return SizedBox(
-      height: 100.0,
-      child: TimelineTile(
-        isFirst: isFirstTile,
-        isLast: isLastTile,
-        endChild: Container(
-          margin: EdgeInsets.only(left: 15.0, right: 25.0),
-          decoration: BoxDecoration(
-            color: Colors.grey[400],
-            borderRadius: BorderRadius.all(
-              Radius.circular(25.0),
-            ),
+  Widget educationTile({String schoolName, String course, String timePeriod}) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: ListTile(
+        leading: Icon(Icons.school),
+        title: Text(schoolName),
+        subtitle: Padding(
+          padding: const EdgeInsets.only(top: 5.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text('$course'),
+              SizedBox(height: 5.0),
+              Text('$timePeriod'),
+            ],
           ),
-          child: ListTile(
-            title: Text(position),
-            subtitle: Text('$companyName\n$timePeriod'),
-            isThreeLine: true,
-          ),
-        ),
-        beforeLineStyle: LineStyle(color: Colors.grey, thickness: 1.0),
-        afterLineStyle: LineStyle(color: Colors.grey, thickness: 1.0),
-        indicatorStyle: IndicatorStyle(
-          width: 9.0,
-          color: Colors.grey,
-          padding: EdgeInsets.fromLTRB(4.0, 5.0, 4.0, 5.0),
         ),
       ),
     );
   }
 
-  ListTile educationTile(
-      {String schoolName, String course, String timePeriod}) {
-    return ListTile(
-      leading: Icon(Icons.school),
-      title: Text(schoolName),
-      subtitle: Text('$course\n$timePeriod'),
-      isThreeLine: true,
-    );
-  }
-
-  ListTile licensesTile(
+  Widget licensesTile(
       {String courseName,
       String courseSite,
       String issuedData,
       String credentialId}) {
-    return ListTile(
-      leading: Icon(Icons.code),
-      title: Text(courseName),
-      subtitle: Text('$courseSite\n$issuedData\n$credentialId\n'),
-      isThreeLine: true,
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: ListTile(
+        leading: Icon(Icons.code),
+        title: Text(courseName),
+        subtitle: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(height: 5.0),
+            Text('$courseSite'),
+            SizedBox(height: 5.0),
+            Text('$issuedData'),
+            SizedBox(height: 5.0),
+            Text('$credentialId'),
+          ],
+        ),
+        isThreeLine: true,
+      ),
     );
   }
 }

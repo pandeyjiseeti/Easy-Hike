@@ -85,7 +85,7 @@ class _PersonalIntroState extends State<PersonalIntro> {
                         const Text(
                           "Personal Information",
                           style: TextStyle(
-                            color: Colors.blue,
+                            color: Color.fromRGBO(234, 97, 97, 1),
                             fontSize: 30,
                           ),
                         ),

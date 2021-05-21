@@ -79,7 +79,8 @@ class SignUp extends StatelessWidget {
                     style: const TextStyle(color: Colors.grey, fontSize: 11.0),
                     children: [
                       TextSpan(
-                        style: const TextStyle(color: Colors.blue),
+                        style: const TextStyle(
+                            color: Color.fromRGBO(234, 97, 97, 1)),
                         text: " Terms of Service ",
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => showDialog(
@@ -93,7 +94,8 @@ class SignUp extends StatelessWidget {
                         text: "and",
                       ),
                       TextSpan(
-                        style: const TextStyle(color: Colors.blue),
+                        style: const TextStyle(
+                            color: Color.fromRGBO(234, 97, 97, 1)),
                         text: " Privacy Policy",
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => showDialog(
@@ -116,7 +118,8 @@ class SignUp extends StatelessWidget {
                     style: const TextStyle(color: Colors.grey),
                     children: [
                       TextSpan(
-                        style: const TextStyle(color: Colors.blue),
+                        style: const TextStyle(
+                            color: Color.fromRGBO(234, 97, 97, 1)),
                         text: " Log in ",
                         recognizer: TapGestureRecognizer()
                           ..onTap = () => Navigator.pushReplacement(

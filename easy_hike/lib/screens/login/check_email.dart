@@ -73,7 +73,8 @@ class _CheckEmailState extends State<CheckEmail> {
             ),
             RichText(
               text: TextSpan(
-                style: const TextStyle(color: Colors.blue, fontSize: 13.0),
+                style: const TextStyle(
+                    color: Color.fromRGBO(234, 97, 97, 1), fontSize: 13.0),
                 text: "Skip, I'll confirm later",
                 recognizer: TapGestureRecognizer()
                   ..onTap = () => Navigator.pushReplacement(
