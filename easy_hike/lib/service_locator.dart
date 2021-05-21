@@ -3,6 +3,7 @@ import 'package:easy_hike/services/database.dart';
 import 'package:get_it/get_it.dart';
 
 import 'models/auth_model.dart';
+import 'models/question_model.dart';
 import 'models/user_model.dart';
 
 GetIt locator = GetIt.I;
@@ -12,4 +13,5 @@ void setupLocator() {
   locator.registerLazySingleton(() => AuthModel());
   locator.registerLazySingleton(() => DatabaseHelper());
   locator.registerLazySingleton(() => JobUserModel());
+  locator.registerLazySingleton(() => QuestionModel());
 }

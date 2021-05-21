@@ -41,13 +41,13 @@ class Auth {
     }
   }
 
-  Future<String> signIn({String email, String password}) async {
+  Future<User> signIn({String email, String password}) async {
     try {
-      await auth.signInWithEmailAndPassword(
+      UserCredential _userCredential = await auth.signInWithEmailAndPassword(
           email: email.trim(), password: password.trim());
-      return "Logged In";
+      return _userCredential.user;
     } on FirebaseAuthException catch (e) {
-      return e.message;
+      // return e.message;
     } catch (e) {
       rethrow;
     }

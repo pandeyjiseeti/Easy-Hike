@@ -55,13 +55,7 @@ class Login extends StatelessWidget {
                     Buttons.GoogleDark,
                     onPressed: () async {
                       final User user = await model.loginWithGoogle();
-                      await model.addJobUser(user, user.displayName);
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (BuildContext context) => PersonalIntro(),
-                        ),
-                      );
+                      await checkProfileStatus(model, user, context);
                     },
                     text: "Log in with Google",
                   ),
@@ -96,4 +90,37 @@ class Login extends StatelessWidget {
       ),
     );
   }
+}
+
+Future checkProfileStatus(
+    AuthModel model, User user, BuildContext context) async {
+  await model.getData(user.uid).then(
+    (doc) async {
+      if (doc.exists) {
+        if (doc.data()['isProfileComplete'] == true) {
+          Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => MainSearch(),
+              ),
+              (route) => false);
+        } else {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(
+              builder: (BuildContext context) => PersonalIntro(),
+            ),
+          );
+        }
+      } else {
+        await model.addJobUser(user, user.displayName);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (BuildContext context) => PersonalIntro(),
+          ),
+        );
+      }
+    },
+  );
 }

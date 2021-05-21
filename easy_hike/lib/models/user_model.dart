@@ -13,8 +13,10 @@ class JobUser {
   final String dob;
   final String pAddress;
   final String rAddress;
+  final List<Map<String, dynamic>> workExperience;
 
   JobUser({
+    this.workExperience,
     this.uid,
     this.fullName,
     this.email,
@@ -33,10 +35,9 @@ class JobUser {
       dob: doc['dob'].toString(),
       pAddress: doc['pAddress'].toString(),
       rAddress: doc['rAddress'].toString(),
+      // workExperience: doc['workExperience'],
     );
   }
 }
 
-class JobUserModel extends Model {
-  
-}
+class JobUserModel extends Model {}

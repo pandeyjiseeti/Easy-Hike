@@ -1,9 +1,11 @@
 import 'package:easy_hike/config/pallete.dart';
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/auth_model.dart';
+import 'package:easy_hike/screens/login/login.dart';
 import 'package:easy_hike/screens/questions/personalintro.dart';
 import 'package:easy_hike/screens/questions/question.dart';
 import 'package:easy_hike/screens/search/search.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -104,14 +106,10 @@ class _LoginFormState extends State<LoginForm> {
               color: primaryColor,
               onPressed: () async {
                 if (_key.currentState.validate()) {
-                  await model.login(_emailController.text.trim(),
+                  final User user = await model.login(
+                      _emailController.text.trim(),
                       _passwordController.text.trim());
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (BuildContext context) => PersonalIntro(),
-                    ),
-                  );
+                  checkProfileStatus(model, user, context);
                 }
               },
               minWidth: screenWidth(context),

@@ -18,7 +18,7 @@ class _RootState extends State<Root> {
   bool _isProfileComplete = false;
   @override
   Widget build(BuildContext context) {
-    return ScopedModel(
+    return ScopedModel<AuthModel>(
       model: locator<AuthModel>(),
       child: ScopedModelDescendant<AuthModel>(
         builder: (context, child, model) => StreamBuilder(
@@ -28,11 +28,27 @@ class _RootState extends State<Root> {
               if (snapshot.data?.uid == null) {
                 return OnBoarding();
               } else {
-                checkProfileCompletion(snapshot);
-                if (_isProfileComplete) {
-                  return MainSearch();
-                }
-                return PersonalIntro();
+                return FutureBuilder(
+                  future: checkProfileCompletion(snapshot, model),
+                  builder:
+                      (BuildContext context, AsyncSnapshot<bool> snapshot) {
+                    if (snapshot.hasData) {
+                      if (snapshot.data == true) {
+                        print('hello ${snapshot.data}');
+                        return MainSearch();
+                      } else {
+                        print('bye ${snapshot.data}');
+                        return PersonalIntro();
+                      }
+                    } else {
+                      return Scaffold(
+                        body: Center(
+                          child: const CircularProgressIndicator(),
+                        ),
+                      );
+                    }
+                  },
+                );
               }
             } else {
               return const CircularProgressIndicator();
@@ -43,22 +59,19 @@ class _RootState extends State<Root> {
     );
   }
 
-  Future<void> checkProfileCompletion(AsyncSnapshot<User> snapshot) async {
-    await FirebaseFirestore.instance
-        .collection('users')
-        .where('uid', isEqualTo: snapshot.data.uid)
-        .get()
-        .then((value) async {
-      if (value.docs[0].data()['isProfileComplete'] == null) {
-        FirebaseFirestore.instance
-            .collection('users')
-            .doc(value.docs[0].id)
-            .update({
-          'isProfileComplete': _isProfileComplete,
-        });
-      } else if (value.docs[0].data()['isProfileComplete'] == true) {
-        _isProfileComplete = true;
+  Future<bool> checkProfileCompletion(
+      AsyncSnapshot<User> snapshot, AuthModel model) async {
+    bool isProfileComplete;
+    await model.getData(snapshot.data.uid).then((value) async {
+      if (value.data()['isProfileComplete'] == null) {
+        isProfileComplete = false;
+        await model.setData(
+            {'isProfileComplete': isProfileComplete}, snapshot.data.uid);
+      } else if (value.data()['isProfileComplete'] == true) {
+        print('TRue');
+        isProfileComplete = true;
       }
     });
+    return isProfileComplete;
   }
 }
