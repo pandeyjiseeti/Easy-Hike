@@ -7,7 +7,11 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../service_locator.dart';
 import 'search/../description.dart';
 import 'search/../filter_bottom_sheet.dart';
+<<<<<<< HEAD
 import 'package:easy_hike/screens/questions/personalintro.dart';
+=======
+import 'package:easy_hike/widgets/settings.dart';
+>>>>>>> 9f034457bd0b27bf28d4868f311965f59ec1d884
 
 class MainSearch extends StatefulWidget {
   @override
@@ -33,6 +37,36 @@ class _MainSearchState extends State<MainSearch> {
               automaticallyImplyLeading: false,
               leading: Icon(
                 Icons.sort_rounded,
+      child: Scaffold(
+        drawer: Settings(),
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+          automaticallyImplyLeading: false,
+          leading: Icon(
+            Icons.sort_rounded,
+            color: Colors.black,
+          ),
+          title: Text('Back'),
+          actions: [
+            Padding(
+              padding: EdgeInsets.only(right: 8.0),
+              child: CircleAvatar(
+                radius: 15.0,
+                child: IconButton(
+                  icon: Icon(Icons.account_circle),
+                  onPressed: () => {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()),
+                    ),
+                  },
+                ),
+              ),
+            ),
+            ScopedModelDescendant<AuthModel>( 
+              builder: (context, widget, model) => IconButton(
                 color: Colors.black,
               ),
               title: Text('Back'),
