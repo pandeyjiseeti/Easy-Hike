@@ -26,6 +26,10 @@ class _ProfilePageState extends State<ProfilePage> {
   TextEditingController textEditingController2;
   TextEditingController textEditingController3;
   TextEditingController textEditingController4;
+  TextEditingController textEditingController5;
+  TextEditingController textEditingController6;
+  TextEditingController textEditingController7;
+  TextEditingController textEditingController8;
 
   @override
   void initState() {
@@ -37,6 +41,10 @@ class _ProfilePageState extends State<ProfilePage> {
     textEditingController2 = TextEditingController();
     textEditingController3 = TextEditingController();
     textEditingController4 = TextEditingController();
+    textEditingController5 = TextEditingController();
+    textEditingController6 = TextEditingController();
+    textEditingController7 = TextEditingController();
+    textEditingController8 = TextEditingController();
     super.initState();
   }
 
@@ -188,8 +196,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               isDismissible: false,
                               context: context,
                               builder: (BuildContext context) {
-                                String skill;
-
                                 return Padding(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 8.0, horizontal: 10.0),
@@ -199,8 +205,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
                                         TextFormField(
-                                          controller: TextEditingController(
-                                              text: skill),
+                                          controller: textEditingController5,
                                           decoration: InputDecoration(
                                             hintText: "Enter Your Skill Name",
                                             fillColor: Colors.grey[200],
@@ -209,19 +214,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   BorderRadius.circular(10.0),
                                             ),
                                           ),
-                                          onChanged: (val) => skill = val,
                                         ),
                                         const SizedBox(height: 10.0),
                                         ElevatedButton(
                                           onPressed: () async {
                                             List<dynamic> skills =
                                                 jobSnapshot.data.skills;
-                                            skills.add(skill);
+                                            skills.add(
+                                                textEditingController5.text);
                                             await model.setField(
                                               {
                                                 'skills': skills,
                                               },
                                             );
+                                            setState(() {});
                                             Navigator.pop(context);
                                           },
                                           style: ButtonStyle(
@@ -284,24 +290,28 @@ class _ProfilePageState extends State<ProfilePage> {
                                           jobSnapshot
                                                   .data.workExperience.length -
                                               1,
-                                      endChild: WorkExperienceTile(
-                                        company: workExperience['Company']
-                                            .toString(),
-                                        years: yearCalculate(
-                                            workExperience['endDateYear']
-                                                .toString(),
-                                            workExperience['startDateYear']
-                                                .toString()),
-                                        position: workExperience['Position']
-                                            .toString(),
-                                        timeline: timelineCalculate(
-                                            workExperience['endDateYear']
-                                                .toString(),
-                                            workExperience['startDateYear']
-                                                .toString()),
-                                        description:
-                                            workExperience['Description']
-                                                .toString(),
+                                      endChild: Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 15.0),
+                                        child: WorkExperienceTile(
+                                          company: workExperience['Company']
+                                              .toString(),
+                                          years: yearCalculate(
+                                              workExperience['endDateYear']
+                                                  .toString(),
+                                              workExperience['startDateYear']
+                                                  .toString()),
+                                          position: workExperience['Position']
+                                              .toString(),
+                                          timeline: timelineCalculate(
+                                              workExperience['endDateYear']
+                                                  .toString(),
+                                              workExperience['startDateYear']
+                                                  .toString()),
+                                          description:
+                                              workExperience['Description']
+                                                  .toString(),
+                                        ),
                                       ),
                                       beforeLineStyle: LineStyle(
                                           color: Colors.grey, thickness: 1.0),
@@ -342,8 +352,12 @@ class _ProfilePageState extends State<ProfilePage> {
                             ),
                           ),
                           onPressed: () async {
-                            await Navigator.pushNamed(context, '/question');
-                            
+                            await Navigator.pushNamed(
+                              context,
+                              '/question',
+                              arguments: {'inside': true},
+                            );
+                            setState(() {});
                           },
                           child: Text(
                             'ADD EXPERIENCE',
@@ -416,8 +430,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
                                           TextFormField(
-                                            controller: TextEditingController(
-                                                text: school),
+                                            controller: textEditingController6,
                                             decoration: InputDecoration(
                                               hintText:
                                                   "Enter Your School/Institution Name",
@@ -427,14 +440,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     BorderRadius.circular(10.0),
                                               ),
                                             ),
-                                            onChanged: (val) => school = val,
                                           ),
                                           SizedBox(
                                             height: 10.0,
                                           ),
                                           TextFormField(
-                                            controller: TextEditingController(
-                                                text: course),
+                                            controller: textEditingController7,
                                             decoration: InputDecoration(
                                               hintText:
                                                   "Enter Your Grade/Course/Program Name",
@@ -444,14 +455,12 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     BorderRadius.circular(10.0),
                                               ),
                                             ),
-                                            onChanged: (val) => course = val,
                                           ),
                                           SizedBox(
                                             height: 10.0,
                                           ),
                                           TextFormField(
-                                            controller: TextEditingController(
-                                                text: timePeriod),
+                                            controller: textEditingController8,
                                             decoration: InputDecoration(
                                               hintText:
                                                   "Enter your Time Period(Start Date - End Date)",
@@ -461,8 +470,6 @@ class _ProfilePageState extends State<ProfilePage> {
                                                     BorderRadius.circular(10.0),
                                               ),
                                             ),
-                                            onChanged: (val) =>
-                                                timePeriod = val,
                                           ),
                                           const SizedBox(height: 10.0),
                                           ElevatedButton(
@@ -470,15 +477,20 @@ class _ProfilePageState extends State<ProfilePage> {
                                               List<dynamic> education =
                                                   jobSnapshot.data.education;
                                               education.add({
-                                                'schoolName': school,
-                                                'course': course,
-                                                'timePeriod': timePeriod,
+                                                'schoolName':
+                                                    textEditingController6.text,
+                                                'course':
+                                                    textEditingController7.text,
+                                                'timePeriod':
+                                                    textEditingController8.text,
                                               });
                                               await model.setField(
                                                 {
                                                   'education': education,
                                                 },
                                               );
+                                              setState(() {});
+
                                               Navigator.pop(context);
                                             },
                                             style: ButtonStyle(
@@ -576,10 +588,6 @@ class _ProfilePageState extends State<ProfilePage> {
                               isDismissible: false,
                               context: context,
                               builder: (BuildContext context) {
-                                String courseName,
-                                    courseSite,
-                                    issuedDate,
-                                    credentialId;
                                 return SingleChildScrollView(
                                   child: Padding(
                                     padding: const EdgeInsets.symmetric(
@@ -663,6 +671,8 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   'licenses': licenses,
                                                 },
                                               );
+                                              setState(() {});
+
                                               Navigator.pop(context);
                                             },
                                             style: ButtonStyle(

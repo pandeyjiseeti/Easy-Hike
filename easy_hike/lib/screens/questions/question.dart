@@ -1,4 +1,6 @@
 import 'package:easy_hike/config/screen_size_reducers.dart';
+import 'package:easy_hike/models/auth_model.dart';
+import 'package:easy_hike/models/profile_model.dart';
 import 'package:easy_hike/models/question_model.dart';
 import 'package:easy_hike/screens/questions/work_experience.dart';
 import 'package:easy_hike/screens/search/search.dart';
@@ -9,6 +11,7 @@ import 'package:scoped_model/scoped_model.dart';
 import '../../service_locator.dart';
 
 class Question extends StatefulWidget {
+  bool inside;
   @override
   _QuestionState createState() => _QuestionState();
 }
@@ -45,6 +48,9 @@ class _QuestionState extends State<Question> {
 
   @override
   Widget build(BuildContext context) {
+    widget.inside = (ModalRoute.of(context).settings.arguments
+        as Map<String, bool>)['inside'] as bool;
+    print(widget.inside);
     return ScopedModel<QuestionModel>(
       model: locator<QuestionModel>(),
       child: GestureDetector(
@@ -60,89 +66,147 @@ class _QuestionState extends State<Question> {
                   vertical: 10.0,
                   horizontal: 25.0,
                 ),
-                child: hasWorkExperience
-                    ? ElevatedButton(
-                        style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(
-                            Size(
-                              screenWidth(context),
-                              screenHeight(context) * 0.07,
+                child: widget.inside == true
+                    ? ScopedModel<ProfileModel>(
+                        model: locator<ProfileModel>(),
+                        child: ScopedModelDescendant<ProfileModel>(
+                          builder: (BuildContext context, Widget child,
+                                  ProfileModel profileModel) =>
+                              ElevatedButton(
+                            style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(
+                                Size(
+                                  screenWidth(context),
+                                  screenHeight(context) * 0.07,
+                                ),
+                              ),
+                            ),
+                            onPressed: () async {
+                              if (_key.currentState.validate()) {
+                                List<dynamic> workExperience;
+                                await profileModel.setData().then(
+                                      (value) =>
+                                          workExperience = value.workExperience,
+                                    );
+                                workExperience.add(
+                                  {
+                                    'Position': jobPosition,
+                                    'Company': company,
+                                    'Industry': industry,
+                                    'Description': description,
+                                    'startDateMonth': int.parse(startDateMonth),
+                                    'startDateYear': int.parse(startDateYear),
+                                    'endDateMonth':
+                                        isWorking ? 0 : int.parse(endDateMonth),
+                                    'endDateYear':
+                                        isWorking ? 0 : int.parse(endDateYear),
+                                    'isWorking': isWorking,
+                                  },
+                                );
+                                await profileModel.setUID();
+                                await profileModel.setField({
+                                  'WorkExperience': workExperience,
+                                });
+                                Navigator.pop(context, "Update");
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Check all the fields and Enter appropriate Information.'),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text(
+                              'ADD EXPERIENCE',
+                              style: TextStyle(fontSize: 18.0),
                             ),
                           ),
                         ),
-                        onPressed: () async {
-                          if (_key.currentState.validate()) {
-                            model.workExperience.add(
-                              {
-                                'Position': jobPosition,
-                                'Company': company,
-                                'Industry': industry,
-                                'Description': description,
-                                'startDateMonth': int.parse(startDateMonth),
-                                'startDateYear': int.parse(startDateYear),
-                                'endDateMonth':
-                                    isWorking ? 0 : int.parse(endDateMonth),
-                                'endDateYear':
-                                    isWorking ? 0 : int.parse(endDateYear),
-                                'isWorking': isWorking,
-                              },
-                            );
-                            model.profileInformation.addAll(
-                              {
-                                'isProfileComplete': true,
-                                'hasWorkExperience': hasWorkExperience,
-                                'WorkExperience': model.workExperience,
-                              },
-                            );
-                            print(model.profileInformation.toString());
-                            if (model.workExperience.length > 1) {
-                              Navigator.pop(context, "Update");
-                            } else {
-                              Navigator.popAndPushNamed(context, '/work');
-                            }
-                          } else {
-                            ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(
-                                content: Text(
-                                    'Check all the fields and Enter appropriate Information.'),
-                              ),
-                            );
-                          }
-                        },
-                        child: Text(
-                          'ADD EXPERIENCE',
-                          style: TextStyle(fontSize: 18.0),
-                        ),
                       )
-                    : ElevatedButton(
-                        style: ButtonStyle(
-                          minimumSize: MaterialStateProperty.all(Size(
-                              screenWidth(context),
-                              screenHeight(context) * 0.07)),
-                        ),
-                        onPressed: () async {
-                          model.profileInformation.addAll(
-                            {
-                              'isProfileComplete': true,
-                              'hasWorkExperience': model.profileInformation[
-                                      'hasWorkExperience'] ??
-                                  hasWorkExperience,
-                              'WorkExperience': model.workExperience,
-                            },
-                          );
-                          Navigator.popAndPushNamed(context, '/work');
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => WorkExperience(),
+                    : hasWorkExperience
+                        ? ElevatedButton(
+                            style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(
+                                Size(
+                                  screenWidth(context),
+                                  screenHeight(context) * 0.07,
+                                ),
+                              ),
                             ),
-                          );
-                        },
-                        child: Text(
-                          'Done!',
-                          style: TextStyle(fontSize: 18.0),
-                        ),
-                      ),
+                            onPressed: () async {
+                              if (_key.currentState.validate()) {
+                                model.workExperience.add(
+                                  {
+                                    'Position': jobPosition,
+                                    'Company': company,
+                                    'Industry': industry,
+                                    'Description': description,
+                                    'startDateMonth': int.parse(startDateMonth),
+                                    'startDateYear': int.parse(startDateYear),
+                                    'endDateMonth':
+                                        isWorking ? 0 : int.parse(endDateMonth),
+                                    'endDateYear':
+                                        isWorking ? 0 : int.parse(endDateYear),
+                                    'isWorking': isWorking,
+                                  },
+                                );
+                                model.profileInformation.addAll(
+                                  {
+                                    'isProfileComplete': true,
+                                    'hasWorkExperience': hasWorkExperience,
+                                    'WorkExperience': model.workExperience,
+                                  },
+                                );
+                                print(model.profileInformation.toString());
+                                if (model.workExperience.length > 1) {
+                                  Navigator.pop(context, "Update");
+                                } else {
+                                  Navigator.popAndPushNamed(context, '/work');
+                                }
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Check all the fields and Enter appropriate Information.'),
+                                  ),
+                                );
+                              }
+                            },
+                            child: Text(
+                              'ADD EXPERIENCE',
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                          )
+                        : ElevatedButton(
+                            style: ButtonStyle(
+                              minimumSize: MaterialStateProperty.all(Size(
+                                  screenWidth(context),
+                                  screenHeight(context) * 0.07)),
+                            ),
+                            onPressed: () async {
+                              model.profileInformation.addAll(
+                                {
+                                  'isProfileComplete': true,
+                                  'hasWorkExperience': model.profileInformation[
+                                          'hasWorkExperience'] ??
+                                      hasWorkExperience,
+                                  'WorkExperience': model.workExperience,
+                                },
+                              );
+                              Navigator.popAndPushNamed(context, '/work');
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => WorkExperience(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              'Done!',
+                              style: TextStyle(fontSize: 18.0),
+                            ),
+                          ),
               ),
             ),
           ],

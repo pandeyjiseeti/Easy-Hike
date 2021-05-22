@@ -29,7 +29,6 @@ class ProfileModel extends Model {
         jobUser = JobUser.fromDocument(doc);
       },
     );
-    notifyListeners();
     return jobUser;
   }
 
