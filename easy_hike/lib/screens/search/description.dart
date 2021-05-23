@@ -60,6 +60,7 @@ class _DescriptionExampleState extends State<DescriptionExample> {
         ),
       ),
       body: ListView(
+        physics: BouncingScrollPhysics(),
         padding: const EdgeInsets.all(15.0),
         children: [
           Center(

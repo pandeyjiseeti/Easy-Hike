@@ -1,4 +1,6 @@
 import 'package:easy_hike/models/auth_model.dart';
+import 'package:easy_hike/models/profile_model.dart';
+import 'package:easy_hike/models/user_model.dart';
 import 'package:easy_hike/screens/search/job_tile.dart';
 import 'package:easy_hike/screens/profile/profile.dart';
 import 'package:easy_hike/widgets/navigation_drawer.dart';
@@ -64,12 +66,24 @@ class _MainSearchState extends State<MainSearch> {
                       ),
                     ),
                   },
-                  child: CircleAvatar(
-                    backgroundColor: Colors.grey[300],
-                    radius: 23.0,
-                    child: Image.network(
-                      'https://www.freeiconspng.com/uploads/account-icon-8.png',
-                      width: 28.0,
+                  child: ScopedModel<ProfileModel>(
+                    model: locator<ProfileModel>(),
+                    child: ScopedModelDescendant<ProfileModel>(
+                      builder: (context, child, ProfileModel model) =>
+                          CircleAvatar(
+                        backgroundColor: Colors.grey[300],
+                        radius: 23.0,
+                        child: FutureBuilder(
+                          future: model.setData(),
+                          builder: (context, AsyncSnapshot<JobUser> snapshot) =>
+                              Image.network(
+                                
+                            snapshot.data.profileImage,
+                            width: 28.0,
+                            fit: BoxFit.contain,
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ),

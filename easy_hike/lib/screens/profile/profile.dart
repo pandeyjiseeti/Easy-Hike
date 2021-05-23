@@ -2,6 +2,7 @@ import 'package:avatar_letter/avatar_letter.dart';
 import 'package:easy_hike/config/screen_size_reducers.dart';
 import 'package:easy_hike/models/profile_model.dart';
 import 'package:easy_hike/models/user_model.dart';
+import 'package:easy_hike/screens/profile/editProfile.dart';
 import 'package:easy_hike/screens/questions/work_experience.dart';
 import 'package:flutter/material.dart';
 import 'package:random_color/random_color.dart';
@@ -73,7 +74,12 @@ class _ProfilePageState extends State<ProfilePage> {
               Icons.edit,
               color: Color.fromRGBO(234, 97, 97, 1),
             ),
-            onPressed: () {},
+            onPressed: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (BuildContext context) => EditProfile(),
+              ),
+            ),
           ),
         ],
       ),
@@ -115,16 +121,7 @@ class _ProfilePageState extends State<ProfilePage> {
                                       fontWeight: FontWeight.w800,
                                       fontSize: 32.0),
                                   textAlign: TextAlign.center,
-                                ),
-                                jobSnapshot.data.role == 'null'
-                                    ? Text('')
-                                    : Text(
-                                        jobSnapshot.data.role,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 15.0),
-                                        textAlign: TextAlign.center,
-                                      ),
+                                ),                            
                               ],
                             ),
                           ),

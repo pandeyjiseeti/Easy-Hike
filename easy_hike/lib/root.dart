@@ -63,11 +63,12 @@ class _RootState extends State<Root> {
       AsyncSnapshot<User> snapshot, AuthModel model) async {
     bool isProfileComplete;
     await model.getData(snapshot.data.uid).then((value) async {
-      if (value.data()['isProfileComplete'] == null) {
+      if ((value.data() as Map<String, dynamic>)['isProfileComplete'] == null) {
         isProfileComplete = false;
         await model.setData(
             {'isProfileComplete': isProfileComplete}, snapshot.data.uid);
-      } else if (value.data()['isProfileComplete'] == true) {
+      } else if ((value.data() as Map<String, dynamic>)['isProfileComplete'] ==
+          true) {
         print('TRue');
         isProfileComplete = true;
       }

@@ -8,7 +8,7 @@ class JobUser {
   final String dob;
   final String pAddress;
   final String rAddress;
-  final String role;
+
   final List<dynamic> workExperience;
   final String profileImage;
   final List<dynamic> skills;
@@ -25,7 +25,6 @@ class JobUser {
     this.pAddress,
     this.rAddress,
     this.profileImage,
-    this.role,
     this.skills,
     this.education,
     this.licenses,
@@ -33,19 +32,27 @@ class JobUser {
 
   factory JobUser.fromDocument(DocumentSnapshot doc) {
     return JobUser(
-      uid: doc.data()['uid'].toString(),
-      fullName: doc.data()['fullName'].toString(),
-      email: doc.data()['email'].toString(),
-      phoneNo: doc.data()['phoneNo'].toString(),
-      dob: doc.data()['dob'].toString(),
-      pAddress: doc.data()['pAddress'].toString(),
-      rAddress: doc.data()['rAddress'].toString(),
-      profileImage: doc.data()['profileImage'].toString(),
-      role: doc.data()['role'].toString(),
-      workExperience: doc.data()['WorkExperience'] as List<dynamic> ?? [],
-      skills: (doc.data()['skills'] as List<dynamic>) ?? [],
-      education: (doc.data()['education'] as List<dynamic>) ?? [],
-      licenses: (doc.data()['licenses'] as List<dynamic>) ?? [],
+      uid: (doc.data() as Map<String, dynamic>)['uid'].toString(),
+      fullName: (doc.data() as Map<String, dynamic>)['fullName'].toString(),
+      email: (doc.data() as Map<String, dynamic>)['email'].toString(),
+      phoneNo: (doc.data() as Map<String, dynamic>)['phoneNo'].toString(),
+      dob: (doc.data() as Map<String, dynamic>)['dob'].toString(),
+      pAddress: (doc.data() as Map<String, dynamic>)['pAddress'].toString(),
+      rAddress: (doc.data() as Map<String, dynamic>)['rAddress'].toString(),
+      profileImage:
+          (doc.data() as Map<String, dynamic>)['profileImage'].toString(),
+      workExperience: (doc.data() as Map<String, dynamic>)['WorkExperience']
+              as List<dynamic> ??
+          [],
+      skills:
+          ((doc.data() as Map<String, dynamic>)['skills'] as List<dynamic>) ??
+              [],
+      education: ((doc.data() as Map<String, dynamic>)['education']
+              as List<dynamic>) ??
+          [],
+      licenses:
+          ((doc.data() as Map<String, dynamic>)['licenses'] as List<dynamic>) ??
+              [],
     );
   }
 }

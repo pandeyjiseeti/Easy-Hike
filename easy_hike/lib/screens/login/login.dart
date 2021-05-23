@@ -98,7 +98,7 @@ Future checkProfileStatus(
   await model.getData(user.uid).then(
     (doc) async {
       if (doc.exists) {
-        if (doc.data()['isProfileComplete'] == true) {
+        if ((doc.data()as Map<String,dynamic>)['isProfileComplete'] == true) {
           Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(

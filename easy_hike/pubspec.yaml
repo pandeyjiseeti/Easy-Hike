@@ -21,10 +21,12 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
-  cloud_firestore: ^1.0.3
+  cloud_firestore: ^2.2.0
   cupertino_icons: ^1.0.2
-  firebase_auth: ^1.0.1
-  firebase_core: ^1.0.2
+  firebase_auth: ^1.2.0
+  firebase_core: ^1.2.0
+  firebase_storage: ^8.1.0
+  image_picker:
   flutter:
     sdk: flutter
   flutter_signin_button: ^1.1.0
@@ -38,6 +40,7 @@ dependencies:
   url_launcher: ^6.0.3
   random_color: ^1.0.5
   timeline_tile: ^2.0.0
+  progress_dialog: ^1.2.4
    
 dev_dependencies:
   flutter_test:
