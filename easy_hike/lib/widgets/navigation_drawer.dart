@@ -1,4 +1,5 @@
 import 'package:easy_hike/config/screen_size_reducers.dart';
+import 'package:easy_hike/screens/applications.dart';
 import 'package:flutter/material.dart';
 
 class NavigationDrawer extends StatelessWidget {
@@ -32,31 +33,23 @@ class NavigationDrawer extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'Avenir',
                   fontSize: 24,
-                  fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
             SizedBox(height: 16),
             ListTile(
+              onTap: () => Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => Application(),
+                ),
+              ),
               title: Text(
                 'Applications',
                 style: TextStyle(
                   fontFamily: 'Avenir',
                   fontSize: 24,
-                  fontWeight: FontWeight.w700,
-                ),
-                textAlign: TextAlign.center,
-              ),
-            ),
-            SizedBox(height: 16),
-            ListTile(
-              title: Text(
-                'About',
-                style: TextStyle(
-                  fontFamily: 'Avenir',
-                  fontSize: 24,
-                  fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -68,7 +61,6 @@ class NavigationDrawer extends StatelessWidget {
                 style: TextStyle(
                   fontFamily: 'Avenir',
                   fontSize: 24,
-                  fontWeight: FontWeight.w700,
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -80,7 +72,6 @@ class NavigationDrawer extends StatelessWidget {
                   style: TextStyle(
                     fontFamily: 'Avenir',
                     fontSize: 24,
-                    fontWeight: FontWeight.w700,
                   ),
                   textAlign: TextAlign.center,
                 ),

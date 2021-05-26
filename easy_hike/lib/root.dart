@@ -34,10 +34,10 @@ class _RootState extends State<Root> {
                       (BuildContext context, AsyncSnapshot<bool> snapshot) {
                     if (snapshot.hasData) {
                       if (snapshot.data == true) {
-                        print('hello ${snapshot.data}');
+                        // print('hello ${snapshot.data}');
                         return MainSearch();
                       } else {
-                        print('bye ${snapshot.data}');
+                        // print('bye ${snapshot.data}');
                         return PersonalIntro();
                       }
                     } else {
@@ -69,7 +69,7 @@ class _RootState extends State<Root> {
             {'isProfileComplete': isProfileComplete}, snapshot.data.uid);
       } else if ((value.data() as Map<String, dynamic>)['isProfileComplete'] ==
           true) {
-        print('TRue');
+        // print('TRue');
         isProfileComplete = true;
       }
     });

@@ -110,9 +110,10 @@ class _PersonalIntroState extends State<PersonalIntro> {
                             ],
                           ),
                           decoration: InputDecoration(
-                              hintText: "Enter your name",
-                              labelText: "Name",
-                              border: OutlineInputBorder()),
+                            hintText: "Enter your name",
+                            labelText: "Name",
+                            border: OutlineInputBorder(),
+                          ),
                         ),
                         const SizedBox(
                           height: 16,

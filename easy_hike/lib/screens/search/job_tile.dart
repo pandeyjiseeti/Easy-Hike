@@ -1,5 +1,6 @@
+import 'package:easy_hike/models/job_model.dart';
 import 'package:easy_hike/screens/search/description.dart';
-import "package:flutter/material.dart";
+import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class JobTile extends StatelessWidget {
@@ -8,6 +9,7 @@ class JobTile extends StatelessWidget {
   final String location;
   final String salary;
   final String postTime;
+  final Job description;
 
   JobTile({
     this.jobTitle,
@@ -15,6 +17,7 @@ class JobTile extends StatelessWidget {
     this.location,
     this.salary,
     this.postTime,
+    this.description,
   });
 
   @override
@@ -24,7 +27,7 @@ class JobTile extends StatelessWidget {
       onTap: () => Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (BuildContext context) => DescriptionExample(),
+          builder: (BuildContext context) => DescriptionExample(description),
         ),
       ),
       child: Container(

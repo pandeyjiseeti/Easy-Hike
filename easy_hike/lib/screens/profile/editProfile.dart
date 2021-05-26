@@ -50,7 +50,7 @@ class _EditProfileState extends State<EditProfile> {
     super.initState();
   }
 
-  Future<void> initPage() async {
+  Future<String> initPage() async {
     final String uid = FirebaseAuth.instance.currentUser.uid;
     await FirebaseFirestore.instance
         .collection('users')
@@ -66,6 +66,7 @@ class _EditProfileState extends State<EditProfile> {
       raddresscon.text = jobUser.rAddress;
       image = jobUser.profileImage;
     });
+    return 'Future Complete';
   }
 
   Future<void> uploadFile(String filePath, BuildContext context) async {
@@ -124,7 +125,7 @@ class _EditProfileState extends State<EditProfile> {
           child: ScopedModelDescendant<ProfileModel>(
             builder: (BuildContext context, Widget child, ProfileModel model) {
               if (snapshot.hasData) {
-                GestureDetector(
+                return GestureDetector(
                   onTap: () => FocusScope.of(context).unfocus(),
                   child: Scaffold(
                     backgroundColor: Colors.white,
@@ -298,6 +299,12 @@ class _EditProfileState extends State<EditProfile> {
                             )),
                       ),
                     ),
+                  ),
+                );
+              } else {
+                return Scaffold(
+                  body: Center(
+                    child: CircularProgressIndicator(),
                   ),
                 );
               }
